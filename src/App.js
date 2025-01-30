@@ -1,7 +1,10 @@
+import Header from './components/Header';
+import InvoiceForm from './components/InvoiceForm';
+
 const App = () => {
   return (
-    <div>
-      <h1>Fakturownia</h1>
+    <div className='app'>
+       <InvoiceForm />
     </div>
   );
 }

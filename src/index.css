@@ -1,1 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+ 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    font-family: 'Montserrat', serif;
+}
+
+.app {
+    background-color: lightgrey;
+}
+
+/* FAKTURA */
+.invoice {
+    width: 210mm;
+    height: 297mm;
+    font-size: 12px;
+    background-color: white;
+    padding: 10px;
+}
+
+.invoice-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 100px 0px;
+}
+
+.invoice-companies-data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 100px 0px;
+}
+
+.invoice-grey {
+    background-color: lightgrey;
+}
+
+.invoice-table {
+    display: flex;
+    justify-content: center;
+    margin: 100px 0px;
+}
+
+.invoice-thead {
+    background-color: lightgrey;
+}
+
+.invoice-td {
+    text-align: center;
+}
+
+.invoice-sum {
+    background-color: lightgrey;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 100px 10px;
+}
+
+.invoice-signatures {
+    display: flex;
+    justify-content: space-around;
+    margin: 100px 0px;
+}
+
+.invoice-signature {
+    width: 200px;
+    height: 100px;
+    border-bottom: 1px solid black;
+}
