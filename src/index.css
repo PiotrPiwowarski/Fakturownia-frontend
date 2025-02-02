@@ -1,76 +1,169 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
- 
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    font-family: 'Montserrat', serif;
+	font-family: 'Montserrat', serif;
+	background-color: lightgrey;
 }
 
-.app {
-    background-color: lightgrey;
+html,
+body {
+	height: 100%;
+	font-size: 20px;
 }
+
+/* APLIKACJA */
+.app {
+	display: flex;
+	min-height: 100vh;
+    min-width: 100vw;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+	background: -webkit-linear-gradient(
+		to right,
+		#23074d,
+		#cc5333
+	);
+	background: linear-gradient(to right, #23074d, #cc5333);
+	color: white;
+}
+
+.app-form {
+	width: 70vw;
+    min-width: 400px;
+	background-color: white;
+	border-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+    padding: 20px;
+}
+
+.app-button {
+	width: 200px;
+	height: 70px;
+	background-color: #cc5333;
+	color: white;
+	border: none;
+	border-radius: 20px;
+	margin: 20px;
+	font-size: 20px;
+}
+
+.app-button:hover {
+	background-color: #cc5433ba;
+}
+
+.app-button:active {
+	background-color: #cc54337d;
+}
+
+.app-label {
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+    color: #cc5333;
+    margin: 10px;
+}
+
+.app-input {
+	margin-left: 10px;
+	border: 1px solid lightgrey;
+	border-radius: 3px;
+	font-size: 20px;
+	color: grey;
+}
+
+.app h2 {
+	color: #23074d;
+    margin-bottom: 20px;
+}
+
+.app h1 {
+    margin-top: 20px;
+	font-size: 40px;
+}
+
+.app-h1-button {
+	background: none;
+	border: none;
+	color: white;
+	font-size: 40px;
+	font-weight: bold;
+}
+
+.app-error {
+	color: red;
+}
+
+.app-paragraph {
+	color: #23074d;
+}
+
 
 /* FAKTURA */
 .invoice {
-    width: 210mm;
-    height: 297mm;
-    font-size: 12px;
-    background-color: white;
-    padding: 10px;
+	width: 210mm;
+	height: 297mm;
+	font-size: 12px;
+	background-color: white;
+	padding: 10px;
 }
 
 .invoice-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 100px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 100px 0px;
 }
 
 .invoice-companies-data {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: 100px 0px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 100px 0px;
 }
 
 .invoice-grey {
-    background-color: lightgrey;
+	background-color: lightgrey;
 }
 
 .invoice-table {
-    display: flex;
-    justify-content: center;
-    margin: 100px 0px;
+	display: flex;
+	justify-content: center;
+	margin: 100px 0px;
 }
 
 .invoice-thead {
-    background-color: lightgrey;
+	background-color: lightgrey;
 }
 
 .invoice-td {
-    text-align: center;
+	text-align: center;
 }
 
 .invoice-sum {
-    background-color: lightgrey;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin: 100px 10px;
+	background-color: lightgrey;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 100px 10px;
 }
 
 .invoice-signatures {
-    display: flex;
-    justify-content: space-around;
-    margin: 100px 0px;
+	display: flex;
+	justify-content: space-around;
+	margin: 100px 0px;
 }
 
 .invoice-signature {
-    width: 200px;
-    height: 100px;
-    border-bottom: 1px solid black;
+	width: 200px;
+	border-bottom: 1px solid black;
 }

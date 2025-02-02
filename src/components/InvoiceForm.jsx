@@ -18,7 +18,6 @@ const InvoiceForm = () => {
 					<p>Zakład usługowy UNIET</p>
 					<p>Babice ul. Krakowska 12, 32-600 Oświęcim</p>
 					<p>NIP: 549-158-93-92</p>
-					<p>REGON: 120009850</p>
 					<div className='invoice-grey'>
 						<p>Bank PEKAO SA o/Oświęcim</p>
 						<p>Konto: 35 1240 4155 1111 0000 4635 1702</p>
@@ -30,7 +29,6 @@ const InvoiceForm = () => {
 					<p>PACCOR Polska SP. Z O. O.</p>
 					<p>ul. Budowlana 6, 41-100 Siemianowice Śląskie</p>
 					<p>NIP: 549-00-22-619</p>
-					<br />
 					<div className='invoice-grey'>
 						<p>Sposób zapłaty: przelew</p>
 						<p>Termin zapłaty: 16.02.2025</p>
@@ -111,6 +109,7 @@ const InvoiceForm = () => {
 			<div className='invoice-sum'>
 				<p>Do zapłaty:</p>
 				<p>5318,91 zł</p>
+				<p>Słownie: pięć tysięcy trzysta osiemnaście złotych i dziewięćdziesiąt jeden groszy</p>
 			</div>
 
 			<div className='invoice-signatures'>
