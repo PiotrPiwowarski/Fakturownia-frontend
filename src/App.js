@@ -1,4 +1,4 @@
-import InvoiceForm from './components/InvoiceForm';
+import InvoiceView from './components/InvoiceView';
 import Home from './components/Home';
 import Login from './components/Login';
 import CompanyRegister from './components/CompanyRegister';
@@ -15,7 +15,7 @@ const App = () => {
         <Route path='/userRegister' element={<UserRegister />} />
         <Route path='/companyRegister' element={<CompanyRegister />}/>
         <Route path='/main' element={<Main />} />
-        <Route path='/invoiceForm' element={<InvoiceForm />}/>
+        <Route path='/invoiceView' element={<InvoiceView />}/>
       </Routes>
     </Router>
   );

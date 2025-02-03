@@ -1,5 +1,6 @@
 import Menu from './Menu';
 import {useState} from 'react';
+import Invoice from './Invoice';
 
 const Main = () => {
 
@@ -14,9 +15,10 @@ const Main = () => {
 			<h1>FAKTUROWNIA</h1>
             <button className="app-button main-button" onClick={onClickMenu}>Menu</button>
             <Menu visibility={menuVisibility ? 'app-visible' : 'app-hidden'} />
-			<div className="app-form">
-				<h2>Twoje faktury</h2>
-			</div>
+			<h2>Twoje faktury</h2>
+            
+            <Invoice />
+
 		</div>
 	);
 };

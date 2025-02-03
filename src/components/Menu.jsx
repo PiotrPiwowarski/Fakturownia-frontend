@@ -32,10 +32,10 @@ const Menu = ({visibility}) => {
     return (
         <div className={`app-form ${visibility}`}>
             <p className='app-error'>{error}</p>
-            <button className="app-button">Stwórz fakturę</button>
-            <button className="app-button">Dodaj firmę</button>
-            <button className="app-button">Twoje konto</button>
-            <button className="app-button" onClick={onClickLogout}>Wyloguj się</button>
+            <button className="app-button menu-button">Stwórz fakturę</button>
+            <button className="app-button menu-button">Dodaj firmę</button>
+            <button className="app-button menu-button">Twoje konto</button>
+            <button className="app-button menu-button" onClick={onClickLogout}>Wyloguj się</button>
         </div>
     );
 }
