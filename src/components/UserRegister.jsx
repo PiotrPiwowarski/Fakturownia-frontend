@@ -70,7 +70,7 @@ const UserRegister = () => {
                 setError('');
                 navigate('/login');
             } catch(e) {
-                setError(e.message);
+                setError(e.response.data);
             }
         }
 	}

@@ -42,7 +42,7 @@ const Login = () => {
 					localStorage.setItem('role', response.data.role)
 				navigate('/main');
 			} catch(e) {
-				setError(e.message);
+				setError(e.response.data);
 			}
 		}
 	}
