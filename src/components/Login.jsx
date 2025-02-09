@@ -25,7 +25,7 @@ const Login = () => {
 
 	const onClickLogin = async () => {
 		if(email.length === 0 || password.length === 0) {
-			setError('Wymagane pola muszą być wypełnione');
+			setError('Należy wypełnić wszystkie pola oznaczone jako obowiązkowe');
 		} else {
 			setError('');
 			try {
@@ -40,7 +40,7 @@ const Login = () => {
 					localStorage.setItem('jwt', response.data.token);
 					localStorage.setItem('userId', response.data.userId);
 					localStorage.setItem('role', response.data.role)
-				navigate('/main');
+				navigate('/yourInvoices');
 			} catch(e) {
 				setError(e.response.data);
 			}

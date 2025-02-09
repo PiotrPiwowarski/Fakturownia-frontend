@@ -45,7 +45,7 @@ const UserRegister = () => {
 
 	const onClickRegister = async () => {
         if(firstName.length === 0 || lastName.length === 0 || email.length === 0 || password.length === 0) {
-            setError('Wymagane pola muszą być wypełnione');
+            setError('Należy wypełnić wszystkie pola oznaczone jako obowiązkowe');
         } else if(password !== repeatedPassword) {
             setError('Powtórzone hasło musi być takie jak pierwotne');
         } else {
@@ -89,6 +89,7 @@ const UserRegister = () => {
 						value={firstName}
 						placeholder=''
 						onChange={onInputFirstName}
+						required
 					/>
 				</label>
                 <label className='app-label'>
@@ -99,6 +100,7 @@ const UserRegister = () => {
 						value={lastName}
 						placeholder=''
 						onChange={onInputLastName}
+						required
 					/>
 				</label>
                 <label className='app-label'>
@@ -119,6 +121,7 @@ const UserRegister = () => {
 						value={email}
 						placeholder=''
 						onChange={onInputEmail}
+						required
 					/>
 				</label>
 				<label className='app-label'>
@@ -129,6 +132,7 @@ const UserRegister = () => {
 						value={password}
 						placeholder=''
 						onChange={onInputPassword}
+						required
 					/>
 				</label>
                 <label className='app-label'>
@@ -139,6 +143,7 @@ const UserRegister = () => {
 						value={repeatedPassword}
 						placeholder=''
 						onChange={onInputRepeatedPassword}
+						required
 					/>
 				</label>
                 <p className='app-paragraph'>* wymagane pola</p>

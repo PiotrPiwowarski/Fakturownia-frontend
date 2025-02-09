@@ -1,8 +1,8 @@
-import Menu from './Menu';
 import {useState} from 'react';
 import Invoice from './Invoice';
+import MenuBar from './MenuBar';
 
-const Main = () => {
+const YourInvoices = () => {
 
     const [menuVisibility, setMenuVisibility] = useState(false);
 
@@ -12,9 +12,7 @@ const Main = () => {
 
 	return (
 		<div  className="app main">
-			<h1>FAKTUROWNIA</h1>
-            <button className="app-button main-button" onClick={onClickMenu}>Menu</button>
-            <Menu visibility={menuVisibility ? 'app-visible' : 'app-hidden'} />
+			<MenuBar />
 			<h2>Twoje faktury</h2>
             
             <Invoice />
@@ -23,4 +21,4 @@ const Main = () => {
 	);
 };
 
-export default Main;
+export default YourInvoices;

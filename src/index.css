@@ -73,6 +73,69 @@ body {
     margin: 10px;
 }
 
+.app-input-button-div {
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+	margin: 10px;
+	color: #cc5333;
+}
+
+.app-input-button {
+	padding-left: 10px; 
+	padding-right: 10px;
+	border: none;
+	background-color: grey;
+	color: white;
+}
+
+.app-input-button:hover {
+	background-color: rgba(128, 128, 128, 0.66);
+}
+
+.app-input-button:active {
+	background-color: rgba(128, 128, 128, 0.284);
+}
+
+.app-font-button {
+	padding-left: 10px; 
+	padding-right: 10px;
+	border: none;
+	background-color: white;
+	color: grey;
+}
+
+.app-font-button:hover {
+	color: rgba(128, 128, 128, 0.66);
+}
+
+.app-font-button:active {
+	color: rgba(128, 128, 128, 0.284);
+}
+
+.app-font-button-underline {
+	border-bottom: 1px solid grey;
+}
+
+.app-border-button {
+	padding-left: 10px; 
+	padding-right: 10px;
+	border: none;
+	background-color: white;
+	color: grey;
+	font-weight: bold;
+	border-bottom: 1px solid white;
+}
+
+.app-border-button:hover {
+	border-bottom: 1px solid grey;
+}
+
+.app-border-button:active {
+	border-bottom: 1px solid rgba(128, 128, 128, 0.599);
+	color: rgba(128, 128, 128, 0.599);
+}
+
 .app-input {
 	margin-left: 10px;
 	border: 1px solid lightgrey;
@@ -82,6 +145,11 @@ body {
 }
 
 .app h2 {
+	color: #23074d;
+    margin-bottom: 20px;
+}
+
+.app h3 {
 	color: #23074d;
     margin-bottom: 20px;
 }
@@ -200,7 +268,7 @@ body {
 
 .invoice-view-table {
 	display: flex;
-	justify-content: center;
+	justify-content:space-between;
 	margin: 100px 0px;
 }
 
@@ -230,3 +298,42 @@ body {
 	width: 200px;
 	border-bottom: 1px solid black;
 }
+
+/* MENU BAR */
+.menu-bar {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* ADD INVOICE POSITION */
+.add-invoice-position-display-all {
+	margin-bottom: 30px;
+}
+
+th ,td {
+	color: black;
+}
+
+.invoice-view-table {
+	display: flex;
+	flex-direction: column;
+}
+
+.add-invoice-position-delete-button {
+	background-color: white;
+	border: none;
+	color: red;
+}
+
+.add-invoice-position-delete-button:hover {
+	border-bottom: 1px solid red;
+}
+
+.add-invoice-position-delete-button:active {
+	border-bottom: 1px solid rgba(255, 0, 0, 0.455);
+	color: rgba(255, 0, 0, 0.455);
+}
+
+

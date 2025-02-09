@@ -41,6 +41,7 @@ const InvoiceView = () => {
 							<th style={{ width: '10px' }}>L.p.</th>
 							<th style={{ width: '250px' }}>nazwa towaru / usługi</th>
 							<th style={{ width: '70px' }}>ilość</th>
+							<th style={{ width: '70px' }}>j.m.</th>
 							<th style={{ width: '70px' }}>cena jed.</th>
 							<th style={{ width: '100px' }}>wartość netto</th>
 							<th style={{ width: '70px' }}>% vat</th>
@@ -58,6 +59,9 @@ const InvoiceView = () => {
 							</td>
 							<td className='invoice-view-td' style={{ width: '70px' }}>
 								96096
+							</td>
+							<td className='invoice-view-td' style={{ width: '100px' }}>
+								szt.
 							</td>
 							<td className='invoice-view-td' style={{ width: '70px' }}>
 								45,00
