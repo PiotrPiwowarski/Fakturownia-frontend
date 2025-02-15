@@ -1,41 +1,42 @@
 import { useState } from 'react';
 
-const AddInvoicePosition = ({ visibility }) => {
+const AddInvoicePosition = ({ visibility, setNewInvoicePositionList }) => {
 	const [positionId, setPositionId] = useState(1);
-	const [positionName, setPositionName] = useState('');
-	const [positionAmount, setPositionAmount] = useState('');
-	const [positionUnitOfMeasure, setPositionUnitOfMeasure] = useState('');
-	const [positionUnitPrice, setPositionUnitPrice] = useState('');
-	const [positionNettoValue, setPositionNettoValue] = useState('');
-	const [positionVatPercent, setPositionVatPercent] = useState('');
-	const [positionVatValue, setPositionVatValue] = useState('');
-	const [positionBruttoValue, setPositionBruttoValue] = useState('');
+	const [name, setName] = useState('');
+	const [amount, setAmount] = useState('');
+	const [unitOfMeasure, setUnitOfMeasure] = useState('PCS');
+	const [unitPrice, setUnitPrice] = useState('');
+	const [nettoValue, setNettoValue] = useState('');
+	const [vatPercent, setVatPercent] = useState('');
+	const [vatValue, setVatValue] = useState('');
+	const [bruttoValue, setBruttoValue] = useState('');
 
 	const [positions, setPositions] = useState([]);
 
 	const onClickAddPosition = () => {
 		const newPosition = {
 			positionId,
-			positionName,
-			positionAmount,
-			positionUnitOfMeasure,
-			positionUnitPrice,
-			positionNettoValue,
-			positionVatPercent,
-			positionVatValue,
-			positionBruttoValue,
+			name,
+			amount,
+			unitOfMeasure,
+			unitPrice,
+			nettoValue,
+			vatPercent,
+			vatValue,
+			bruttoValue,
 		};
 
 		setPositions((prev) => [...prev, newPosition]);
+		setNewInvoicePositionList((prev) => [...prev, newPosition]);
 		setPositionId((prev) => prev + 1);
-		setPositionName('');
-		setPositionAmount('');
-		setPositionUnitOfMeasure('');
-		setPositionUnitPrice('');
-		setPositionNettoValue('');
-		setPositionVatPercent('');
-		setPositionVatValue('');
-		setPositionBruttoValue('');
+		setName('');
+		setAmount('');
+		setUnitOfMeasure('');
+		setUnitPrice('');
+		setNettoValue('');
+		setVatPercent('');
+		setVatValue('');
+		setBruttoValue('');
 	};
 
 	const onClickDeletePosition = (positionId) => {
@@ -72,36 +73,36 @@ const AddInvoicePosition = ({ visibility }) => {
 											<td
 												className='invoice-view-td'
 												style={{ width: '250px' }}>
-												{position.positionName}
+												{position.name}
 											</td>
 											<td className='invoice-view-td' style={{ width: '70px' }}>
-												{position.positionAmount}
+												{position.amount}
 											</td>
 											<td
 												className='invoice-view-td'
 												style={{ width: '100px' }}>
-												{position.positionUnitOfMeasure}
+												{position.unitOfMeasure}
 											</td>
 											<td className='invoice-view-td' style={{ width: '70px' }}>
-												{position.positionUnitPrice}
+												{position.unitPrice}
 											</td>
 											<td
 												className='invoice-view-td'
 												style={{ width: '100px' }}>
-												{position.positionNettoValue}
+												{position.nettoValue}
 											</td>
 											<td className='invoice-view-td' style={{ width: '70px' }}>
-												{position.positionVatPercent}
+												{position.vatPercent}
 											</td>
 											<td
 												className='invoice-view-td'
 												style={{ width: '100px' }}>
-												{position.positionVatValue}
+												{position.vatValue}
 											</td>
 											<td
 												className='invoice-view-td'
 												style={{ width: '100px' }}>
-												{position.positionBruttoValue}
+												{position.bruttoValue}
 											</td>
 											<td>
 												<button className='add-invoice-position-delete-button' onClick={() => onClickDeletePosition(position.positionId)}>
@@ -122,9 +123,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionName}
+					value={name}
 					placeholder=''
-					onChange={(e) => setPositionName(e.target.value)}
+					onChange={(e) => setName(e.target.value)}
 					required
 				/>
 			</label>
@@ -133,9 +134,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionAmount}
+					value={amount}
 					placeholder=''
-					onChange={(e) => setPositionAmount(e.target.value)}
+					onChange={(e) => setAmount(e.target.value)}
 					required
 				/>
 			</label>
@@ -143,11 +144,11 @@ const AddInvoicePosition = ({ visibility }) => {
 				* jednostka miary
 				<select
 					className='app-input'
-					value={positionUnitOfMeasure}
-					onChange={(e) => setPositionUnitOfMeasure(e.target.value)}>
-					<option value='psc'>szt.</option>
-					<option value='l'>l</option>
-					<option value='kg'>kg</option>
+					value={unitOfMeasure}
+					onChange={(e) => setUnitOfMeasure(e.target.value)}>
+					<option value='PCS'>szt.</option>
+					<option value='L'>l</option>
+					<option value='KG'>kg</option>
 				</select>
 			</label>
 			<label className='app-label'>
@@ -155,9 +156,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionUnitPrice}
+					value={unitPrice}
 					placeholder=''
-					onChange={(e) => setPositionUnitPrice(e.target.value)}
+					onChange={(e) => setUnitPrice(e.target.value)}
 					required
 				/>
 			</label>
@@ -166,9 +167,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionNettoValue}
+					value={nettoValue}
 					placeholder=''
-					onChange={(e) => setPositionNettoValue(e.target.value)}
+					onChange={(e) => setNettoValue(e.target.value)}
 					required
 				/>
 			</label>
@@ -177,9 +178,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionVatPercent}
+					value={vatPercent}
 					placeholder=''
-					onChange={(e) => setPositionVatPercent(e.target.value)}
+					onChange={(e) => setVatPercent(e.target.value)}
 					required
 				/>
 			</label>
@@ -188,9 +189,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionVatValue}
+					value={vatValue}
 					placeholder=''
-					onChange={(e) => setPositionVatValue(e.target.value)}
+					onChange={(e) => setVatValue(e.target.value)}
 					required
 				/>
 			</label>
@@ -199,9 +200,9 @@ const AddInvoicePosition = ({ visibility }) => {
 				<input
 					className='app-input'
 					type='text'
-					value={positionBruttoValue}
+					value={bruttoValue}
 					placeholder=''
-					onChange={(e) => setPositionBruttoValue(e.target.value)}
+					onChange={(e) => setBruttoValue(e.target.value)}
 					required
 				/>
 			</label>

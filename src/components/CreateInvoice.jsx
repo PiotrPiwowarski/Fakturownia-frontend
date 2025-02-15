@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddCompany from './AddCompany';
 import AddInvoicePosition from './AddInvoicePosition';
+import axios from 'axios';
+import useStore from './useStore';
 
 const CreateInvoice = () => {
 	const navigate = useNavigate();
+	const {url} = useStore();
 
 	const [error, setError] = useState('');
 	const [sellerCompanyVisibility, setSellerCompanyVisibility] = useState(false);
@@ -13,8 +16,9 @@ const CreateInvoice = () => {
 
 	const [dateOfIssue, setDateOfIssue] = useState('');
 	const [dateOfSale, setDateOfSale] = useState('');
-	const [originality, setOriginality] = useState('original');
-	const [methodOfPayment, setMethodOfPayment] = useState('transfer');
+	const [originality, setOriginality] = useState('ORIGINAL');
+	const [methodOfPayment, setMethodOfPayment] = useState('TRANSFER');
+	const [deadlineOfPayment, setDeadlineOfPayment] = useState('');
 
 	const [sellerCompanyName, setSellerCompanyName] = useState('');
 	const [sellerCompanyStreet, setSellerCompanyStreet] = useState('');
@@ -22,8 +26,8 @@ const CreateInvoice = () => {
 	const [sellerCompanyPostCode, setSellerCompanyPostCode] = useState('');
 	const [sellerCompanyCity, setSellerCompanyCity] = useState('');
 	const [sellerCompanyNip, setSellerCompanyNip] = useState('')
-	const [sellerCompanyBankName, setSellerCompanyBankName] = useState('');
-	const [sellerCompanyBankAccountNumber, setSellerCompanyBankAccountNumber] = useState('');
+	const [sellerCompanyBankName, setSellerCompanyBankName] = useState(null);
+	const [sellerCompanyBankAccountNumber, setSellerCompanyBankAccountNumber] = useState(null);
 
 	const [buyerCompanyName, setBuyerCompanyName] = useState('');
 	const [buyerCompanyStreet, setBuyerCompanyStreet] = useState('');
@@ -31,8 +35,10 @@ const CreateInvoice = () => {
 	const [buyerCompanyPostCode, setBuyerCompanyPostCode] = useState('');
 	const [buyerCompanyCity, setBuyerCompanyCity] = useState('');
 	const [buyerCompanyNip, setBuyerCompanyNip] = useState('')
-	const [buyerCompanyBankName, setBuyerCompanyBankName] = useState('');
-	const [buyerCompanyBankAccountNumber, setBuyerCompanyBankAccountNumber] = useState('');
+	const [buyerCompanyBankName, setBuyerCompanyBankName] = useState(null);
+	const [buyerCompanyBankAccountNumber, setBuyerCompanyBankAccountNumber] = useState(null);
+
+	const [newInvoicePositionList, setNewInvoicePositionList] = useState([]);
 
 	const onClickHeader = () => {
 		navigate('/yourInvoices');
@@ -50,13 +56,14 @@ const CreateInvoice = () => {
 		setPositionVisibility(prev => !prev);
 	}
 
-	const onClickCreateInvoice = () => {
+	const onClickCreateInvoice = async () => {
 		setError('asdfjhalsdkjfhlajdhfklsa')
 		if(
 			dateOfIssue === '' || 
 			dateOfSale === '' || 
 			originality === '' || 
 			methodOfPayment === '' ||
+			deadlineOfPayment === '' ||
 	
 			sellerCompanyName === '' || 
 			sellerCompanyStreet === '' || 
@@ -74,28 +81,49 @@ const CreateInvoice = () => {
 		) {
 			setError('Należy wypełnić wszystkie pola oznaczone jako obowiązkowe');
 		} else {
-			const invoice = {
-				dateOfIssue,
-				dateOfSale,
-				originality,
-				methodOfPayment,
-				sellerCompanyName,
-				sellerCompanyStreet,
-				sellerCompanyBuildingNumber,
-				sellerCompanyPostCode,
-				sellerCompanyCity,
-				sellerCompanyNip,
-				sellerCompanyBankName,
-				sellerCompanyBankAccountNumber,
-				buyerCompanyName,
-				buyerCompanyStreet,
-				buyerCompanyBuildingNumber,
-				buyerCompanyPostCode,
-				buyerCompanyCity,
-				buyerCompanyNip,
-				buyerCompanyBankName,
-				buyerCompanyBankAccountNumber
-			}
+			const token = localStorage.getItem('jwt');
+			const userId = localStorage.getItem('userId');
+            try {
+                const invoice = {
+					userId: userId,
+					dateOfIssue,
+					dateOfSale,
+					originality,
+					methodOfPayment,
+					deadlineOfPayment,
+					sellerCompanyName,
+					sellerCompanyStreet,
+					sellerCompanyBuildingNumber,
+					sellerCompanyPostCode,
+					sellerCompanyCity,
+					sellerCompanyNip,
+					sellerCompanyBankName,
+					sellerCompanyBankAccountNumber,
+					buyerCompanyName,
+					buyerCompanyStreet,
+					buyerCompanyBuildingNumber,
+					buyerCompanyPostCode,
+					buyerCompanyCity,
+					buyerCompanyNip,
+					buyerCompanyBankName,
+					buyerCompanyBankAccountNumber,
+					newInvoicePositionList
+				}
+    
+                const response = await axios.post(`${url}/api/invoices/add`, invoice, {
+                    headers: {
+                        'Content-Type': 'application/json',
+						Authorization: `Bearer ${token}`
+                    }
+                });
+
+                console.log(response);
+    
+                setError('');
+                navigate('/yourInvoices');
+            } catch(e) {
+                setError(e.response.data);
+            }
 		}
 	};
 
@@ -134,8 +162,8 @@ const CreateInvoice = () => {
 						name='originality'
 						value={originality}
 						onChange={(e) => setOriginality(e.target.value)}>
-						<option value='original'>oryginał</option>
-						<option value='copy'>kopia</option>
+						<option value='ORIGINAL'>oryginał</option>
+						<option value='COPY'>kopia</option>
 					</select>
 				</label>
 				<label className='app-label'>
@@ -145,8 +173,9 @@ const CreateInvoice = () => {
 						type='text'
 						value={methodOfPayment}
 						onChange={(e) => setMethodOfPayment(e.target.value)}>
-						<option value='transfer'>przelew</option>
-						<option value='cash'>gotówka</option>
+						<option value='CASH'>gotówka</option>
+						<option value='CARD'>karta</option>
+						<option value='TRANSFER'>przelew</option>
 					</select>
 				</label>
 				<label className='app-label'>
@@ -154,9 +183,9 @@ const CreateInvoice = () => {
 					<input
 						className='app-input'
 						type='date'
-						value={dateOfSale}
+						value={deadlineOfPayment}
 						placeholder=''
-						onChange={(e) => setDateOfSale(e.target.value)}
+						onChange={(e) => setDeadlineOfPayment(e.target.value)}
 					/>
 				</label>
 				<div className='app-input-button-div'>
@@ -219,7 +248,7 @@ const CreateInvoice = () => {
 					<label>* lista pozycji</label>
 					<button className='app-input-button' onClick={onClickPositionVisibility}>otwórz listę pozycji</button>
 				</div>
-				<AddInvoicePosition visibility={positionVisibility ? 'app-visible' : 'app-hidden'} />
+				<AddInvoicePosition visibility={positionVisibility ? 'app-visible' : 'app-hidden'} setNewInvoicePositionList={setNewInvoicePositionList} />
 				<p className='app-paragraph'>* wymagane pola</p>
 				<button className='app-button'  onClick={onClickCreateInvoice}>
 					stwórz nową fakturę

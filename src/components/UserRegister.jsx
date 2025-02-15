@@ -11,7 +11,7 @@ const UserRegister = () => {
     const [lastName, setLastName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [password, setPassword] = useState(null);
     const [repeatedPassword, setRepeatedPassword] = useState('');
     const [error, setError] = useState('');
 
