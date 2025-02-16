@@ -17,6 +17,9 @@ body {
 }
 
 /* APLIKACJA */
+.app-h1-white {
+	color: white;
+}
 .app {
 	display: flex;
 	min-height: 100vh;
@@ -30,7 +33,6 @@ body {
 		#cc5333
 	);
 	background: linear-gradient(to right, #23074d, #cc5333);
-	color: white;
 }
 
 .app-form {
@@ -190,6 +192,19 @@ body {
     display: flex;
 }
 
+.app-menu-bar-positioning {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px;
+}
+
+.app-header-positioning {
+	position: absolute;
+	left: 50vw;
+	transform: translateX(-50%);
+}
+
 /* MAIN */
 .main {
 	justify-content: flex-start;
@@ -334,6 +349,23 @@ th ,td {
 .add-invoice-position-delete-button:active {
 	border-bottom: 1px solid rgba(255, 0, 0, 0.455);
 	color: rgba(255, 0, 0, 0.455);
+}
+
+/* user data */
+.user-data {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+/* user icon */
+.user-icon:hover {
+	fill: rgba(255, 255, 255, 0.666);
+}
+
+.user-icon:active {
+	fill: rgba(255, 255, 255, 0.263);
 }
 
 

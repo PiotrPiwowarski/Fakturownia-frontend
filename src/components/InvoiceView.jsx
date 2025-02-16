@@ -1,127 +1,144 @@
+import { useLocation } from 'react-router-dom';
+import MainBar from './MainBar';
+
 const InvoiceView = () => {
+	const location = useLocation();
+	const { invoice } = location.state || {};
 
 	return (
-		<div className='invoice-view'>
-			<p>Data wystawienia: 17-01-2025</p>
-			<p>Data sprzedaży: 17-01-2025</p>
+		<div className='app'>
+			<MainBar />
+			<div className='invoice-view'>
+				<p>Data wystawienia: {invoice.dateOfIssue}</p>
+				<p>Data sprzedaży: {invoice.dateOfSale}</p>
 
-			<div className='invoice-view-header'>
-				<h1>FAKTURA VAT NR 01/2025</h1>
-				<p>oryginał/kopia</p>
-			</div>
+				<div className='invoice-view-header'>
+					<h1>FAKTURA VAT NR {invoice.invoiceNumber}</h1>
+					<p>{invoice.originality === 'ORIGINAL' ? 'oryginał' : 'kopia'}</p>
+				</div>
 
-			<div className='invoice-view-companies-data'>
-				<div className='invoice-view-companies-seller-data'>
-					<h2>Sprzedawca:</h2>
-					<p>Zakład usługowy UNIET</p>
-					<p>Babice ul. Krakowska 12, 32-600 Oświęcim</p>
-					<p>NIP: 549-158-93-92</p>
-					<div className='invoice-view-grey'>
-						<p>Bank PEKAO SA o/Oświęcim</p>
-						<p>Konto: 35 1240 4155 1111 0000 4635 1702</p>
+				<div className='invoice-view-companies-data'>
+					<div className='invoice-view-companies-seller-data'>
+						<h2>Sprzedawca:</h2>
+						<p>{invoice.sellerCompanyName}</p>
+						<p>{invoice.sellerFirstName} {invoice.sellerLastName}</p>
+						<p>{invoice.sellerEmail}</p>
+						<p>
+							ul. {invoice.sellerCompanyStreet}{' '}
+							{invoice.sellerCompanyBuildingNumber},{' '}
+							{invoice.sellerCompanyPostCode} {invoice.sellerCompanyCity}
+						</p>
+						<p>NIP: {invoice.sellerCompanyNip}</p>
+						<div className='invoice-view-grey'>
+							<p>{invoice.sellerCompanyBankName}</p>
+							<p>Konto: {invoice.sellerCompanyBankAccountNumber}</p>
+						</div>
+					</div>
+
+					<div className='invoice-view-companies-buyer-data'>
+						<h2>Nabywca:</h2>
+						<p>{invoice.buyerCompanyName}</p>
+						<p>
+							ul. {invoice.buyerCompanyStreet}{' '}
+							{invoice.buyerCompanyBuildingNumber},{' '}
+							{invoice.buyerCompanyPostCode} {invoice.buyerCompanyCity}
+						</p>
+						<p>NIP: {invoice.buyerCompanyNip}</p>
+						<div className='invoice-view-grey'>
+							<p>
+								Sposób zapłaty:{' '}
+								{invoice.methodOfPayment === 'CASH'
+									? 'gotówka'
+									: invoice.methodOfPayment === 'CARD'
+									? 'karta'
+									: 'przelew'}
+							</p>
+							<p>Termin zapłaty: {invoice.deadlineOfPayment}</p>
+						</div>
 					</div>
 				</div>
 
-				<div className='invoice-view-companies-buyer-data'>
-					<h2>Nabywca:</h2>
-					<p>PACCOR Polska SP. Z O. O.</p>
-					<p>ul. Budowlana 6, 41-100 Siemianowice Śląskie</p>
-					<p>NIP: 549-00-22-619</p>
-					<div className='invoice-view-grey'>
-						<p>Sposób zapłaty: przelew</p>
-						<p>Termin zapłaty: 16.02.2025</p>
-					</div>
+				<div className='invoice-view-table'>
+					<table>
+						<thead className='invoice-view-thead'>
+							<tr>
+								<th style={{ width: '10px' }}>L.p.</th>
+								<th style={{ width: '250px' }}>nazwa towaru / usługi</th>
+								<th style={{ width: '70px' }}>ilość</th>
+								<th style={{ width: '70px' }}>j.m.</th>
+								<th style={{ width: '70px' }}>cena jed.</th>
+								<th style={{ width: '100px' }}>wartość netto</th>
+								<th style={{ width: '70px' }}>% vat</th>
+								<th style={{ width: '100px' }}>kwota vat</th>
+								<th style={{ width: '100px' }}>wartość brutto</th>
+							</tr>
+						</thead>
+						<tbody>
+							{invoice.getInvoicePositionDtoList.map((position, index) => {
+								return (
+									<tr key={position.id}>
+										<td className='invoice-view-td' style={{ width: '10px' }}>
+											{index + 1}.
+										</td>
+										<td className='invoice-view-td' style={{ width: '250px' }}>
+											{position.name}
+										</td>
+										<td className='invoice-view-td' style={{ width: '70px' }}>
+											{position.amount}
+										</td>
+										<td className='invoice-view-td' style={{ width: '100px' }}>
+											{position.unitOfMeasure === 'THOUSAND_PCS' ? 'TYS. SZT.' : position.unitOfMeasure === 'PCS' ? 'SZT.' : position.unitOfMeasure}
+										</td>
+										<td className='invoice-view-td' style={{ width: '70px' }}>
+											{position.unitPrice}
+										</td>
+										<td className='invoice-view-td' style={{ width: '100px' }}>
+											{position.nettoValue}
+										</td>
+										<td className='invoice-view-td' style={{ width: '70px' }}>
+											{position.vatPercent}
+										</td>
+										<td className='invoice-view-td' style={{ width: '100px' }}>
+											{position.vatValue}
+										</td>
+										<td className='invoice-view-td' style={{ width: '100px' }}>
+											{position.bruttoValue}
+										</td>
+									</tr>
+								);
+							})}
+						</tbody>
+					</table>
 				</div>
-			</div>
 
-			<div className='invoice-view-table'>
-				<table>
-					<thead className='invoice-view-thead'>
-						<tr>
-							<th style={{ width: '10px' }}>L.p.</th>
-							<th style={{ width: '250px' }}>nazwa towaru / usługi</th>
-							<th style={{ width: '70px' }}>ilość</th>
-							<th style={{ width: '70px' }}>j.m.</th>
-							<th style={{ width: '70px' }}>cena jed.</th>
-							<th style={{ width: '100px' }}>wartość netto</th>
-							<th style={{ width: '70px' }}>% vat</th>
-							<th style={{ width: '100px' }}>kwota vat</th>
-							<th style={{ width: '100px' }}>wartość brutto</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td className='invoice-view-td' style={{ width: '10px' }}>
-								1.
-							</td>
-							<td className='invoice-view-td' style={{ width: '250px' }}>
-								ETYKIETOWANIE - WIECZKA LGPT 795580E51C M&S
-							</td>
-							<td className='invoice-view-td' style={{ width: '70px' }}>
-								96096
-							</td>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								szt.
-							</td>
-							<td className='invoice-view-td' style={{ width: '70px' }}>
-								45,00
-							</td>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								4324,32
-							</td>
-							<td className='invoice-view-td' style={{ width: '70px' }}>
-								23
-							</td>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								994,59
-							</td>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								5318,91
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-			<div className='invoice-view-table'>
-				<table>
-					<thead className='invoice-view-thead'>
-						<tr>
-							<th style={{ width: '100px' }}>suma netto</th>
-							<th style={{ width: '100px' }}>suma vat</th>
-							<th style={{ width: '150px' }}>suma brutto</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								4324,32
-							</td>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								994,59
-							</td>
-							<td className='invoice-view-td' style={{ width: '100px' }}>
-								5318,91
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-			<div className='invoice-view-sum'>
-				<p>Do zapłaty:</p>
-				<p>5318,91 zł</p>
-				<p>Słownie: pięć tysięcy trzysta osiemnaście złotych i dziewięćdziesiąt jeden groszy</p>
-			</div>
-
-			<div className='invoice-view-signatures'>
-				<div style={{textAlign: 'center'}}>
-					<div className='invoice-view-signature'></div>
-					<p>data i podpis nabywcy</p>
+				<div className='invoice-view-table'>
+					<table>
+						<thead className='invoice-view-thead'>
+							<tr>
+								<th style={{ width: '100px' }}>suma netto</th>
+								<th style={{ width: '100px' }}>suma vat</th>
+								<th style={{ width: '150px' }}>suma brutto</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td className='invoice-view-td' style={{ width: '100px' }}>
+									{invoice.sumNetto}
+								</td>
+								<td className='invoice-view-td' style={{ width: '100px' }}>
+									{invoice.sumVat}
+								</td>
+								<td className='invoice-view-td' style={{ width: '100px' }}>
+									{invoice.sumBrutto}
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<div style={{textAlign: 'center'}}>
-					<div className='invoice-view-signature'></div>
-					<p>podpis wystawcy</p>
+
+				<div className='invoice-view-sum'>
+					<p>Do zapłaty:</p>
+					<p>{invoice.totalToPay} zł</p>
 				</div>
 			</div>
 		</div>

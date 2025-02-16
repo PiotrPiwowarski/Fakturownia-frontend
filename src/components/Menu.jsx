@@ -19,12 +19,12 @@ const Menu = ({visibility, setMenuVisibility}) => {
     }
 
     const onClickYourInvoices = () => {
-        navigate('/yourInvoices');
+        navigate('/myInvoices');
         setMenuVisibility(false);
     }
 
     const onClickYourAccount = () => {
-        navigate('/addCompany');
+        navigate('/myAccount');
         setMenuVisibility(false);
     }
 
@@ -33,31 +33,36 @@ const Menu = ({visibility, setMenuVisibility}) => {
             const token = localStorage.getItem('jwt');
             if (!token) {
                 navigate('/');
+                setError('');
                 return;
             }
 			await axios.post(
-				`${url}/api/users/logout`,
-				{},
-				{
-					headers: { Authorization: `Bearer ${token}` },
-				}
-			);
+                `${url}/api/users/logout`,
+                {},
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
 			localStorage.removeItem('jwt');
-			localStorage.removeItem('userId');
 			localStorage.removeItem('role');
-			navigate('/yourCompanies');
+			navigate('/');
             setError('');
         } catch(e) {
-            setError("Błąd wylogowania");
+            localStorage.removeItem('jwt');
+			localStorage.removeItem('role');
+            navigate('/');
         }
     }
 
     return (
         <div className={`app-form ${visibility}`}>
             <p className='app-error'>{error}</p>
-            <button className="app-button menu-button" onClick={onClickCreateInvoice}>Utwórz fakturę</button>
-            <button className="app-button menu-button" onClick={onClickYourInvoices}>Twoje faktury</button>
-            <button className="app-button menu-button" onClick={onClickYourAccount}>Twoje konto</button>
+            <button className="app-button menu-button" onClick={onClickCreateInvoice}>Nowa faktura</button>
+            <button className="app-button menu-button" onClick={onClickYourInvoices}>Moje faktury</button>
+            <button className="app-button menu-button" onClick={onClickYourAccount}>Moje konto</button>
             <button className="app-button menu-button" onClick={onClickLogout}>Wyloguj się</button>
         </div>
     );

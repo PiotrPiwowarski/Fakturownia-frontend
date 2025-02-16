@@ -38,9 +38,8 @@ const Login = () => {
                         'Content-Type': 'application/json'
                     }});
 					localStorage.setItem('jwt', response.data.token);
-					localStorage.setItem('userId', response.data.userId);
 					localStorage.setItem('role', response.data.role)
-				navigate('/yourInvoices');
+				navigate('/myInvoices');
 			} catch(e) {
 				setError(e.response.data);
 			}

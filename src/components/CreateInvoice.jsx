@@ -4,6 +4,7 @@ import AddCompany from './AddCompany';
 import AddInvoicePosition from './AddInvoicePosition';
 import axios from 'axios';
 import useStore from './useStore';
+import MainBar from './MainBar';
 
 const CreateInvoice = () => {
 	const navigate = useNavigate();
@@ -39,10 +40,6 @@ const CreateInvoice = () => {
 	const [buyerCompanyBankAccountNumber, setBuyerCompanyBankAccountNumber] = useState(null);
 
 	const [newInvoicePositionList, setNewInvoicePositionList] = useState([]);
-
-	const onClickHeader = () => {
-		navigate('/yourInvoices');
-	};
 
 	const onClickSellerCompanyVisibility = () => {
 		setSellerCompanyVisibility((prev) => !prev);
@@ -82,10 +79,12 @@ const CreateInvoice = () => {
 			setError('Należy wypełnić wszystkie pola oznaczone jako obowiązkowe');
 		} else {
 			const token = localStorage.getItem('jwt');
-			const userId = localStorage.getItem('userId');
+			if(!token) {
+				setError('Brak tokenu autoryzacyjnego');
+				return;
+			}
             try {
                 const invoice = {
-					userId: userId,
 					dateOfIssue,
 					dateOfSale,
 					originality,
@@ -129,9 +128,7 @@ const CreateInvoice = () => {
 
 	return (
 		<div className='app'>
-			<button className='app-h1-button' onClick={onClickHeader}>
-				FAKTUROWNIA
-			</button>
+			<MainBar />
 			<div className='app-form'>
 				<h2>Utwórz fakturę</h2>
 				<p className='app-error'>{error}</p>

@@ -146,6 +146,7 @@ const AddInvoicePosition = ({ visibility, setNewInvoicePositionList }) => {
 					className='app-input'
 					value={unitOfMeasure}
 					onChange={(e) => setUnitOfMeasure(e.target.value)}>
+						<option value='THOUSAND_PCS'>tys. szt.</option>
 					<option value='PCS'>szt.</option>
 					<option value='L'>l</option>
 					<option value='KG'>kg</option>
