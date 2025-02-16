@@ -1,14 +1,20 @@
+import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainBar from './MainBar';
+import {useReactToPrint} from 'react-to-print';
 
 const InvoiceView = () => {
 	const location = useLocation();
 	const { invoice } = location.state || {};
+	const contentRef = useRef(null);
+
+	const handlePrint = useReactToPrint({contentRef});
 
 	return (
 		<div className='app'>
 			<MainBar />
-			<div className='invoice-view'>
+			<button onClick={handlePrint}>drukuj</button>
+			<div className='invoice-view' ref={contentRef}>
 				<p>Data wystawienia: {invoice.dateOfIssue}</p>
 				<p>Data sprzedaży: {invoice.dateOfSale}</p>
 
