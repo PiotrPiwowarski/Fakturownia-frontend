@@ -22,43 +22,43 @@ const AddCompany = ({
 }) => {
 	const [buttonUnderline, setButtonUnderline] = useState('enter-manually');
 
-	const onInputCompanyName = (e) => {
+	const handleCompanyNameInput = (e) => {
 		setCompanyName(e.target.value);
 	};
 
-	const onInputStreet = (e) => {
+	const handleStreetInput = (e) => {
 		setStreet(e.target.value);
 	};
 
-	const onInputBuildingNumber = (e) => {
+	const handleBuildingNumberInput = (e) => {
 		setBuildingNumber(e.target.value);
 	};
 
-	const onInputPostCode = (e) => {
+	const handlePostCodeInput = (e) => {
 		setPostCode(e.target.value);
 	};
 
-	const onInputCity = (e) => {
+	const handleCityInput = (e) => {
 		setCity(e.target.value);
 	};
 
-	const onInputNip = (e) => {
+	const handleNipInput = (e) => {
 		setNip(e.target.value);
 	};
 
-	const onInputBankName = (e) => {
+	const handleBankNameInput = (e) => {
 		setBankName(e.target.value);
 	};
 
-	const onInputBankAccountNumber = (e) => {
+	const handleBankAccountNumberInput = (e) => {
 		setBankAccountNumber(e.target.value);
 	};
 
-	const onClickEnterManually = () => {
+	const handleEnterManuallyBtn = () => {
 		setButtonUnderline('enter-manually');
 	};
 
-	const onClickChooseFrom = () => {
+	const handleChooseFromBtn = () => {
 		setButtonUnderline('choose-from');
 	};
 
@@ -72,14 +72,14 @@ const AddCompany = ({
 							? 'app-font-button-underline'
 							: ''
 					}`}
-					onClick={onClickEnterManually}>
+					onClick={handleEnterManuallyBtn}>
 					wprowadź ręcznie
 				</button>
 				<button
 					className={`app-font-button ${
 						buttonUnderline === 'choose-from' ? 'app-font-button-underline' : ''
 					}`}
-					onClick={onClickChooseFrom}>
+					onClick={handleChooseFromBtn}>
 					wybierz spośród
 				</button>
 			</div>
@@ -90,7 +90,7 @@ const AddCompany = ({
 					type='text'
 					value={companyName}
 					placeholder=''
-					onChange={onInputCompanyName}
+					onChange={handleCompanyNameInput}
 					required
 				/>
 			</label>
@@ -101,7 +101,7 @@ const AddCompany = ({
 					type='text'
 					value={street}
 					placeholder=''
-					onChange={onInputStreet}
+					onChange={handleStreetInput}
 					required
 				/>
 			</label>
@@ -112,7 +112,7 @@ const AddCompany = ({
 					type='text'
 					value={buildingNumber}
 					placeholder=''
-					onChange={onInputBuildingNumber}
+					onChange={handleBuildingNumberInput}
 					required
 				/>
 			</label>
@@ -123,7 +123,7 @@ const AddCompany = ({
 					type='text'
 					value={postCode}
 					placeholder=''
-					onChange={onInputPostCode}
+					onChange={handlePostCodeInput}
 					required
 				/>
 			</label>
@@ -134,7 +134,7 @@ const AddCompany = ({
 					type='text'
 					value={city}
 					placeholder=''
-					onChange={onInputCity}
+					onChange={handleCityInput}
 					required
 				/>
 			</label>
@@ -145,7 +145,7 @@ const AddCompany = ({
 					type='text'
 					value={nip}
 					placeholder=''
-					onChange={onInputNip}
+					onChange={handleNipInput}
 					required
 				/>
 			</label>
@@ -156,7 +156,7 @@ const AddCompany = ({
 					type='text'
 					value={bankName}
 					placeholder=''
-					onChange={onInputBankName}
+					onChange={handleBankNameInput}
 				/>
 			</label>
 			<label className='app-label'>
@@ -166,7 +166,7 @@ const AddCompany = ({
 					type='text'
 					value={bankAccountNumber}
 					placeholder=''
-					onChange={onInputBankAccountNumber}
+					onChange={handleBankAccountNumberInput}
 				/>
 			</label>
 		</div>

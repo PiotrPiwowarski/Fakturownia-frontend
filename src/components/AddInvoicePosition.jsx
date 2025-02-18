@@ -39,7 +39,7 @@ const AddInvoicePosition = ({ visibility, setNewInvoicePositionList }) => {
 		setBruttoValue('');
 	};
 
-	const onClickDeletePosition = (positionId) => {
+	const handleDeletePositionBtn = (positionId) => {
 		setPositions(prev => {
 			return prev.filter(p => p.positionId !== positionId);
 		});
@@ -105,7 +105,7 @@ const AddInvoicePosition = ({ visibility, setNewInvoicePositionList }) => {
 												{position.bruttoValue}
 											</td>
 											<td>
-												<button className='add-invoice-position-delete-button' onClick={() => onClickDeletePosition(position.positionId)}>
+												<button className='add-invoice-position-delete-button' onClick={() => handleDeletePositionBtn(position.positionId)}>
 													usuń wiersz
 												</button>
 											</td>

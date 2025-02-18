@@ -11,15 +11,15 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	const onInputEmail = (e) => {
+	const handlEmailInput = (e) => {
 		setEmail(e.target.value);
 	}
 
-	const onInputPassword = (e) => {
+	const handlePasswordInput = (e) => {
 		setPassword(e.target.value);
 	}
 
-	const onClickHeader = () => {
+	const handleHeaderBtn = () => {
 		navigate('/');
 	}
 
@@ -41,14 +41,14 @@ const Login = () => {
 					localStorage.setItem('role', response.data.role)
 				navigate('/myInvoices');
 			} catch(e) {
-				setError(e.response.data);
+				setError('Logowanie zakończone niepowodzeniem');
 			}
 		}
 	}
 
 	return (
 		<div className='app'>
-			<button className='app-h1-button' onClick={onClickHeader}>FAKTUROWNIA</button>
+			<button className='app-h1-button' onClick={handleHeaderBtn}>FAKTUROWNIA</button>
 			<div className='app-form'>
 				<h2>Zaloguj się</h2>
 				<p className='app-error'>{error}</p>
@@ -59,7 +59,7 @@ const Login = () => {
 						type='email'
 						value={email}
 						placeholder=''
-						onChange={onInputEmail}
+						onChange={handlEmailInput}
 					/>
 				</label>
 				<label className='app-label'>
@@ -69,7 +69,7 @@ const Login = () => {
 						type='password'
 						value={password}
 						placeholder=''
-						onChange={onInputPassword}
+						onChange={handlePasswordInput}
 					/>
 				</label>
 				<p className='app-paragraph'>* wymagane pola</p>

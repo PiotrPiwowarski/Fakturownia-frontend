@@ -3,8 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useStore from './useStore';
 
-const Menu = ({visibility, setMenuVisibility}) => {
-
+const UserMenu = ({visibility, setMenuVisibility}) => {
     const navigate = useNavigate();
     const {url} = useStore();
     const [error, setError] = useState('');
@@ -13,17 +12,7 @@ const Menu = ({visibility, setMenuVisibility}) => {
         setError('');
     }, [visibility]);
 
-    const onClickCreateInvoice = () => {
-        navigate('/createInvoice');
-        setMenuVisibility(false);
-    }
-
-    const onClickYourInvoices = () => {
-        navigate('/myInvoices');
-        setMenuVisibility(false);
-    }
-
-    const onClickYourAccount = () => {
+    const handleYourAccountBtn = () => {
         navigate('/myAccount');
         setMenuVisibility(false);
     }
@@ -60,12 +49,10 @@ const Menu = ({visibility, setMenuVisibility}) => {
     return (
         <div className={`app-form ${visibility}`}>
             <p className='app-error'>{error}</p>
-            <button className="app-button menu-button" onClick={onClickCreateInvoice}>Nowa faktura</button>
-            <button className="app-button menu-button" onClick={onClickYourInvoices}>Moje faktury</button>
-            <button className="app-button menu-button" onClick={onClickYourAccount}>Moje konto</button>
+            <button className="app-button menu-button" onClick={handleYourAccountBtn}>Moje konto</button>
             <button className="app-button menu-button" onClick={onClickLogout}>Wyloguj się</button>
         </div>
     );
 }
 
-export default Menu;
+export default UserMenu;

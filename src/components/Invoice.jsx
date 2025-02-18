@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 const Invoice = ({invoice}) => {
     const navigate = useNavigate(); 
 
-    const onClickView = () => {
+    const handleViewBtn = () => {
         navigate('/invoiceView', {state: {invoice}});
     }
 
@@ -22,7 +22,7 @@ const Invoice = ({invoice}) => {
                     <p className="invoice-font">{invoice.buyerCompanyName}</p>
                 </div>
             </div>
-            <button className="app-button" onClick={onClickView}>Podgląd</button>
+            <button className="app-button" onClick={handleViewBtn}>Podgląd</button>
         </div>
     );
 }

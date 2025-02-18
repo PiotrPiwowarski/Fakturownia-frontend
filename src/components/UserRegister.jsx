@@ -15,31 +15,31 @@ const UserRegister = () => {
     const [repeatedPassword, setRepeatedPassword] = useState('');
     const [error, setError] = useState('');
 
-    const onInputFirstName = (e) => {
+    const handleFirstNameInput = (e) => {
 		setFirstName(e.target.value);
 	}
 
-    const onInputLastName = (e) => {
+    const handleLastNameInput = (e) => {
 		setLastName(e.target.value);
 	}
 
-    const onInputPhoneNumber = (e) => {
+    const handlePhoneNumberInput = (e) => {
 		setPhoneNumber(e.target.value);
 	}
 
-	const onInputEmail = (e) => {
+	const handleEmailInput = (e) => {
 		setEmail(e.target.value);
 	}
 
-	const onInputPassword = (e) => {
+	const handlePasswordInput = (e) => {
 		setPassword(e.target.value);
 	}
 
-    const onInputRepeatedPassword = (e) => {
+    const handleRepeatedPasswordInput = (e) => {
         setRepeatedPassword(e.target.value);
     }
 
-	const onClickHeader = () => {
+	const handleHeaderBtn = () => {
 		navigate('/');
 	}
 
@@ -48,7 +48,11 @@ const UserRegister = () => {
             setError('Należy wypełnić wszystkie pola oznaczone jako obowiązkowe');
         } else if(password !== repeatedPassword) {
             setError('Powtórzone hasło musi być takie jak pierwotne');
-        } else {
+        } else if(!email.includes('@')) {
+			setError('Niepoprawny email');
+		} else if(password.length < 5) {
+			setError('Hasło musi zawierać przynajmniej pięć znaków');
+		} else {
             setError('');
             try {
                 const newUserDto = {
@@ -70,14 +74,14 @@ const UserRegister = () => {
                 setError('');
                 navigate('/login');
             } catch(e) {
-                setError(e.response.data);
+                setError('Rejestracja zakończona niepowodzeniem');
             }
         }
 	}
 
     return (
         <div className='app'>
-			<button className='app-h1-button' onClick={onClickHeader}>FAKTUROWNIA</button>
+			<button className='app-h1-button' onClick={handleHeaderBtn}>FAKTUROWNIA</button>
 			<div className='app-form'>
 				<h2>Zarejestruj się</h2>
                 <p className='app-error'>{error}</p>
@@ -88,7 +92,7 @@ const UserRegister = () => {
 						type='text'
 						value={firstName}
 						placeholder=''
-						onChange={onInputFirstName}
+						onChange={handleFirstNameInput}
 						required
 					/>
 				</label>
@@ -99,7 +103,7 @@ const UserRegister = () => {
 						type='text'
 						value={lastName}
 						placeholder=''
-						onChange={onInputLastName}
+						onChange={handleLastNameInput}
 						required
 					/>
 				</label>
@@ -110,7 +114,7 @@ const UserRegister = () => {
 						type='text'
 						value={phoneNumber}
 						placeholder=''
-						onChange={onInputPhoneNumber}
+						onChange={handlePhoneNumberInput}
 					/>
 				</label>
 				<label className='app-label'>
@@ -120,7 +124,7 @@ const UserRegister = () => {
 						type='email'
 						value={email}
 						placeholder=''
-						onChange={onInputEmail}
+						onChange={handleEmailInput}
 						required
 					/>
 				</label>
@@ -131,7 +135,7 @@ const UserRegister = () => {
 						type='password'
 						value={password}
 						placeholder=''
-						onChange={onInputPassword}
+						onChange={handlePasswordInput}
 						required
 					/>
 				</label>
@@ -142,7 +146,7 @@ const UserRegister = () => {
 						type='password'
 						value={repeatedPassword}
 						placeholder=''
-						onChange={onInputRepeatedPassword}
+						onChange={handleRepeatedPasswordInput}
 						required
 					/>
 				</label>

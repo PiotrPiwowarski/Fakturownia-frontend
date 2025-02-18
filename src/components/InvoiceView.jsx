@@ -1,19 +1,29 @@
 import React, { useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import MainBar from './MainBar';
-import {useReactToPrint} from 'react-to-print';
+import { useReactToPrint } from 'react-to-print';
+import PrintIcon from '../img/PrintIcon';
+import PdfIcon from '../img/PdfIcon';
 
 const InvoiceView = () => {
 	const location = useLocation();
 	const { invoice } = location.state || {};
 	const contentRef = useRef(null);
 
-	const handlePrint = useReactToPrint({contentRef});
+	const handlePrintBtn = useReactToPrint({ contentRef });
+	const handlePdfBtn = () => {};
 
 	return (
 		<div className='app'>
 			<MainBar />
-			<button onClick={handlePrint}>drukuj</button>
+			<div className='space-between'>
+				<button onClick={handlePrintBtn} className='svg-button'>
+					<PrintIcon />
+				</button>
+				<button onClick={handlePdfBtn} className='svg-button'>
+					<PdfIcon />
+				</button>
+			</div>
 			<div className='invoice-view' ref={contentRef}>
 				<p>Data wystawienia: {invoice.dateOfIssue}</p>
 				<p>Data sprzedaży: {invoice.dateOfSale}</p>
@@ -27,7 +37,9 @@ const InvoiceView = () => {
 					<div className='invoice-view-companies-seller-data'>
 						<h2>Sprzedawca:</h2>
 						<p>{invoice.sellerCompanyName}</p>
-						<p>{invoice.sellerFirstName} {invoice.sellerLastName}</p>
+						<p>
+							{invoice.sellerFirstName} {invoice.sellerLastName}
+						</p>
 						<p>{invoice.sellerEmail}</p>
 						<p>
 							ul. {invoice.sellerCompanyStreet}{' '}
@@ -93,7 +105,11 @@ const InvoiceView = () => {
 											{position.amount}
 										</td>
 										<td className='invoice-view-td' style={{ width: '100px' }}>
-											{position.unitOfMeasure === 'THOUSAND_PCS' ? 'TYS. SZT.' : position.unitOfMeasure === 'PCS' ? 'SZT.' : position.unitOfMeasure}
+											{position.unitOfMeasure === 'THOUSAND_PCS'
+												? 'TYS. SZT.'
+												: position.unitOfMeasure === 'PCS'
+												? 'SZT.'
+												: position.unitOfMeasure}
 										</td>
 										<td className='invoice-view-td' style={{ width: '70px' }}>
 											{position.unitPrice}

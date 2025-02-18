@@ -41,19 +41,19 @@ const CreateInvoice = () => {
 
 	const [newInvoicePositionList, setNewInvoicePositionList] = useState([]);
 
-	const onClickSellerCompanyVisibility = () => {
+	const handleSellerCompanyVisibilityBtn = () => {
 		setSellerCompanyVisibility((prev) => !prev);
 	};
 
-	const onClickBuyerCompanyVisibility = () => {
+	const handleBuyerCompanyVisibilityBtn = () => {
 		setBuyerCompanyVisibility((prev) => !prev);
 	};
 
-	const onClickPositionVisibility = () => {
+	const handlePositionVisibilityBtn = () => {
 		setPositionVisibility(prev => !prev);
 	}
 
-	const onClickCreateInvoice = async () => {
+	const handleCreateInvoiceBtn = async () => {
 		setError('asdfjhalsdkjfhlajdhfklsa')
 		if(
 			dateOfIssue === '' || 
@@ -189,7 +189,7 @@ const CreateInvoice = () => {
 					<label>* dane sprzedawcy</label>
 					<button
 						className='app-input-button'
-						onClick={onClickSellerCompanyVisibility}>
+						onClick={handleSellerCompanyVisibilityBtn}>
 						otwórz dane sprzedawcy
 					</button>
 				</div>
@@ -217,7 +217,7 @@ const CreateInvoice = () => {
 					<label>* dane nabywcy</label>
 					<button
 						className='app-input-button'
-						onClick={onClickBuyerCompanyVisibility}>
+						onClick={handleBuyerCompanyVisibilityBtn}>
 						otwórz dane nabywcy
 					</button>
 				</div>
@@ -243,11 +243,11 @@ const CreateInvoice = () => {
 				/>
 				<div className='app-input-button-div'>
 					<label>* lista pozycji</label>
-					<button className='app-input-button' onClick={onClickPositionVisibility}>otwórz listę pozycji</button>
+					<button className='app-input-button' onClick={handlePositionVisibilityBtn}>otwórz listę pozycji</button>
 				</div>
 				<AddInvoicePosition visibility={positionVisibility ? 'app-visible' : 'app-hidden'} setNewInvoicePositionList={setNewInvoicePositionList} />
 				<p className='app-paragraph'>* wymagane pola</p>
-				<button className='app-button'  onClick={onClickCreateInvoice}>
+				<button className='app-button'  onClick={handleCreateInvoiceBtn}>
 					stwórz nową fakturę
 				</button>
 			</div>
