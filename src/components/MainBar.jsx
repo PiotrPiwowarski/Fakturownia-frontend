@@ -21,17 +21,15 @@ const MainBar = () => {
 	};
 
 	const handleClickHeader = () => {
-		navigate('/myInvoices');
+		navigate('/dashboard');
 	};
 
 	return (
 		<div className='menu-bar'>
 			<div className='app-menu-bar-positioning'>
-				<div>
-					<button className='svg-button' onClick={handleClickMainMenuBtn}>
-						<MenuIcon />
-					</button>
-				</div>
+				<button className='svg-button' onClick={handleClickMainMenuBtn}>
+					<MenuIcon />
+				</button>
 				<button className='app-h1-button' onClick={handleClickHeader}>
 					FAKTUROWNIA
 				</button>

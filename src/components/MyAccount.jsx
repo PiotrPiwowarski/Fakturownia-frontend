@@ -55,6 +55,7 @@ const MyAccount = () => {
                         <p className='invoice-font'>*****</p>
 					</div>
 				</div>
+				<button className='delete-button'>usuń konto</button>
                 <button className='app-button'>zmień dane</button>
 			</div>
 		</div>

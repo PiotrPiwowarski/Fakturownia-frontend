@@ -20,9 +20,15 @@ const MainMenu = ({visibility, setMenuVisibility}) => {
         setMenuVisibility(false);
     }
 
+    const handleDaskboardBtn = () => {
+        navigate("/dashboard");
+        setMenuVisibility(false);
+    }
+
     return (
         <div className={`app-form ${visibility}`}>
             <p className='app-error'>{error}</p>
+            <button className="app-button menu-button" onClick={handleDaskboardBtn}>Dashboard</button>
             <button className="app-button menu-button" onClick={handleCreateInvoiceBtn}>Nowa faktura</button>
             <button className="app-button menu-button" onClick={handleYourInvoicesBtn}>Moje faktury</button>
         </div>

@@ -15,6 +15,7 @@ const CreateInvoice = () => {
 	const [buyerCompanyVisibility, setBuyerCompanyVisibility] = useState(false);
 	const [positionVisibility, setPositionVisibility] = useState(false);
 
+	const [invoiceNumber, setInvoiceNumber] = useState('');
 	const [dateOfIssue, setDateOfIssue] = useState('');
 	const [dateOfSale, setDateOfSale] = useState('');
 	const [originality, setOriginality] = useState('ORIGINAL');
@@ -85,6 +86,7 @@ const CreateInvoice = () => {
 			}
             try {
                 const invoice = {
+					invoiceNumber,
 					dateOfIssue,
 					dateOfSale,
 					originality,
@@ -119,9 +121,9 @@ const CreateInvoice = () => {
                 console.log(response);
     
                 setError('');
-                navigate('/yourInvoices');
+                navigate('/myInvoices');
             } catch(e) {
-                setError(e.response.data);
+                setError('Tworzenie faktury zakończone niepowodzeniem');
             }
 		}
 	};
@@ -132,6 +134,17 @@ const CreateInvoice = () => {
 			<div className='app-form'>
 				<h2>Utwórz fakturę</h2>
 				<p className='app-error'>{error}</p>
+				<label className='app-label'>
+					* numer faktury
+					<input
+						className='app-input'
+						type='text'
+						value={invoiceNumber}
+						placeholder=''
+						onChange={(e) => setInvoiceNumber(e.target.value)}
+						required
+					/>
+				</label>
 				<label className='app-label'>
 					* data wystawienia
 					<input

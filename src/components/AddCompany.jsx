@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import EnterCompanyManually from './EnterCompanyManually';
+import ChooseCompanyFromList from './ChooseCompanyFromList';
 
 const AddCompany = ({
 	visibility,
@@ -22,37 +24,7 @@ const AddCompany = ({
 }) => {
 	const [buttonUnderline, setButtonUnderline] = useState('enter-manually');
 
-	const handleCompanyNameInput = (e) => {
-		setCompanyName(e.target.value);
-	};
-
-	const handleStreetInput = (e) => {
-		setStreet(e.target.value);
-	};
-
-	const handleBuildingNumberInput = (e) => {
-		setBuildingNumber(e.target.value);
-	};
-
-	const handlePostCodeInput = (e) => {
-		setPostCode(e.target.value);
-	};
-
-	const handleCityInput = (e) => {
-		setCity(e.target.value);
-	};
-
-	const handleNipInput = (e) => {
-		setNip(e.target.value);
-	};
-
-	const handleBankNameInput = (e) => {
-		setBankName(e.target.value);
-	};
-
-	const handleBankAccountNumberInput = (e) => {
-		setBankAccountNumber(e.target.value);
-	};
+	const [error, setError] = useState('');
 
 	const handleEnterManuallyBtn = () => {
 		setButtonUnderline('enter-manually');
@@ -65,6 +37,7 @@ const AddCompany = ({
 	return (
 		<div className={`app-form ${visibility}`}>
 			<h3>{sectionHeader}</h3>
+			<p className='app-error'>{error}</p>
 			<div>
 				<button
 					className={`app-font-button ${
@@ -83,92 +56,27 @@ const AddCompany = ({
 					wybierz spośród
 				</button>
 			</div>
-			<label className='app-label'>
-				* nazwa firmy
-				<input
-					className='app-input'
-					type='text'
-					value={companyName}
-					placeholder=''
-					onChange={handleCompanyNameInput}
-					required
-				/>
-			</label>
-			<label className='app-label'>
-				* ulica
-				<input
-					className='app-input'
-					type='text'
-					value={street}
-					placeholder=''
-					onChange={handleStreetInput}
-					required
-				/>
-			</label>
-			<label className='app-label'>
-				* numer domu
-				<input
-					className='app-input'
-					type='text'
-					value={buildingNumber}
-					placeholder=''
-					onChange={handleBuildingNumberInput}
-					required
-				/>
-			</label>
-			<label className='app-label'>
-				* kod pocztowy
-				<input
-					className='app-input'
-					type='text'
-					value={postCode}
-					placeholder=''
-					onChange={handlePostCodeInput}
-					required
-				/>
-			</label>
-			<label className='app-label'>
-				* miasto
-				<input
-					className='app-input'
-					type='text'
-					value={city}
-					placeholder=''
-					onChange={handleCityInput}
-					required
-				/>
-			</label>
-			<label className='app-label'>
-				* nip
-				<input
-					className='app-input'
-					type='text'
-					value={nip}
-					placeholder=''
-					onChange={handleNipInput}
-					required
-				/>
-			</label>
-			<label className='app-label'>
-				&nbsp;&nbsp;nazwa banku
-				<input
-					className='app-input'
-					type='text'
-					value={bankName}
-					placeholder=''
-					onChange={handleBankNameInput}
-				/>
-			</label>
-			<label className='app-label'>
-				&nbsp;&nbsp;numer konta
-				<input
-					className='app-input'
-					type='text'
-					value={bankAccountNumber}
-					placeholder=''
-					onChange={handleBankAccountNumberInput}
-				/>
-			</label>
+			{
+				buttonUnderline === 'enter-manually' ? <EnterCompanyManually
+				setCompanyName={setCompanyName}
+				setStreet={setStreet}
+				setBuildingNumber={setBuildingNumber}
+				setPostCode={setPostCode}
+				setCity={setCity}
+				setNip={setNip}
+				setBankName={setBankName}
+				setBankAccountNumber={setBankAccountNumber}
+				companyName={companyName}
+				street={street}
+				buildingNumber={buildingNumber}
+				postCode={postCode}
+				city={city}
+				nip={nip}
+				bankName={bankName}
+				bankAccountNumber={bankAccountNumber}
+				setError={setError}
+			/> : <ChooseCompanyFromList setError={setError} />
+			}
 		</div>
 	);
 };

@@ -17,7 +17,7 @@ body {
 }
 
 /* APLIKACJA */
-.app-h1-white {
+h1 {
 	color: white;
 }
 .app {
@@ -374,8 +374,29 @@ th ,td {
 }
 
 .space-between {
-	width: 100px;
+	width: 300px;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+}
+
+.h2-white {
+	color: white !important;
+}
+
+.delete-button {
+	background-color: red;
+	border: none;
+}
+
+.delete-button:hover {
+	background-color: rgba(255, 0, 0, 0.776);
+}
+
+.delete-button:active {
+	background-color: rgba(255, 0, 0, 0.5);
+}
+
+.invoice-header {
+	color: black;
 }

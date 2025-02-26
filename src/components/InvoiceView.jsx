@@ -4,6 +4,9 @@ import MainBar from './MainBar';
 import { useReactToPrint } from 'react-to-print';
 import PrintIcon from '../img/PrintIcon';
 import PdfIcon from '../img/PdfIcon';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import {format} from 'date-fns';
 
 const InvoiceView = () => {
 	const location = useLocation();
@@ -11,7 +14,21 @@ const InvoiceView = () => {
 	const contentRef = useRef(null);
 
 	const handlePrintBtn = useReactToPrint({ contentRef });
-	const handlePdfBtn = () => {};
+	const handlePdfBtn = () => {
+		const input = contentRef.current;
+
+		html2canvas(input, { scale: 2 }).then((canvas) => {
+			const imgData = canvas.toDataURL("image/png");
+			const pdf = new jsPDF("p", "mm", "a4");
+			const imgWidth = 190;
+			const imgHeight = (canvas.height * imgWidth) / canvas.width;
+			
+			pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+			const date = new Date();
+			const formattedDate = format(date, 'yyyy-MM-dd HH-mm-ss');
+			pdf.save(`faktura ${formattedDate}.pdf`);
+		  });
+	};
 
 	return (
 		<div className='app'>
@@ -29,7 +46,7 @@ const InvoiceView = () => {
 				<p>Data sprzedaży: {invoice.dateOfSale}</p>
 
 				<div className='invoice-view-header'>
-					<h1>FAKTURA VAT NR {invoice.invoiceNumber}</h1>
+					<h1 className='invoice-header'>FAKTURA VAT NR {invoice.invoiceNumber}</h1>
 					<p>{invoice.originality === 'ORIGINAL' ? 'oryginał' : 'kopia'}</p>
 				</div>
 
@@ -145,13 +162,13 @@ const InvoiceView = () => {
 						<tbody>
 							<tr>
 								<td className='invoice-view-td' style={{ width: '100px' }}>
-									{invoice.sumNetto}
+									{invoice.sumNetto} zł
 								</td>
 								<td className='invoice-view-td' style={{ width: '100px' }}>
-									{invoice.sumVat}
+									{invoice.sumVat} zł
 								</td>
 								<td className='invoice-view-td' style={{ width: '100px' }}>
-									{invoice.sumBrutto}
+									{invoice.sumBrutto} zł
 								</td>
 							</tr>
 						</tbody>

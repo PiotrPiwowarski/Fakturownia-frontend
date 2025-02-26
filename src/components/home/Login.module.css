@@ -1,0 +1,83 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	
+	width: 50%;
+	min-width: 300px;
+}
+
+h1 {
+	color: #636b2f;
+	font-weight: bold;
+	font-size: 80px;
+}
+
+.error {
+	color: rgb(228, 10, 101);
+}
+
+label {
+	display: flex;
+	flex-direction: column;
+}
+
+input {
+	border: 1px solid lightgrey;
+	margin: 10px 0px;
+	width: 100%;
+}
+
+.passwordForgotBtn {
+	font-size: 10px;
+	margin-bottom: 20px;
+
+    background-color: white;
+    border: none;
+    color: #636b2f;
+}
+
+.passwordForgotBtn:hover {
+    color: #636b2fac;
+}
+
+.passwordForgotBtn:active {
+    color: #636b2f69;
+}
+
+.loginBtn {
+	margin: 20px;
+	width: 200px;
+
+	background-color: #636b2f;
+	color: white;
+	border: none;
+    border-radius: 5px;
+}
+
+.loginBtn:hover {
+    background-color: #636b2fc2;
+}
+
+.loginBtn:active {
+    background-color: #636b2f6c;
+}
+
+.registerBtn {
+	display: inline;
+	font-size: inherit;
+	background-color: #fff;
+	color: #c1ca87;
+	border: none;
+	line-height: 20px;
+}
+
+.registerBtn:hover {
+	color: #c1ca87b7;
+}
+
+.registerBtn:active {
+	color: #c1ca8770;
+}
