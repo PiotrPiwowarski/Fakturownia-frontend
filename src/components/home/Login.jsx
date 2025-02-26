@@ -4,7 +4,7 @@ import useStore from '../useStore';
 import axios from 'axios';
 import styles from './Login.module.css';
 
-const Login = () => {
+const Login = ({ setDisplayedComponent }) => {
 	const navigate = useNavigate();
 	const { url } = useStore();
 
@@ -12,9 +12,11 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	const handleRegisterBtn = () => {};
+	const handleRegisterBtn = () => {
+		setDisplayedComponent('registration');
+	};
 
-	const handlEmailInput = (e) => {
+	const handleEmailInput = (e) => {
 		setEmail(e.target.value);
 	};
 
@@ -22,9 +24,7 @@ const Login = () => {
 		setPassword(e.target.value);
 	};
 
-	const handlePasswordForgot = () => {
-
-	}
+	const handlePasswordForgot = () => {};
 
 	const handleLoginBtn = async () => {
 		if (email.length === 0 || password.length === 0) {
@@ -52,33 +52,37 @@ const Login = () => {
 
 	return (
 		<div className={styles.form}>
-				<h1>Zaczynijmy.</h1>
-				<p className={styles.error}>{error}</p>
-				<div className={styles.registration}>
-					<p>
-						Nie masz jeszcze konta?{' '}
-						<button className={styles.registerBtn} onClick={handleRegisterBtn}>Zarejestruj się.</button>
-					</p>
-				</div>
-				<label>
-					Email
-					<input
-						type='email'
-						value={email}
-						onChange={handlEmailInput}
-					/>
-				</label>
-				<label>
-					Hasło
-					<input
-						type='password'
-						value={password}
-						onChange={handlePasswordInput}
-					/>
-				</label>
-				<button className={styles.passwordForgotBtn} onClick={handlePasswordForgot}>Zapomniałeś hasła?</button>
-				<button className={styles.loginBtn} onClick={handleLoginBtn}>Zaloguj się</button>
+			<h1>Zaczynijmy.</h1>
+			<p className={styles.error}>{error}</p>
+			<div className={styles.registration}>
+				<p>
+					Nie masz jeszcze konta?{' '}
+					<button className={styles.registerBtn} onClick={handleRegisterBtn}>
+						Zarejestruj się.
+					</button>
+				</p>
 			</div>
+			<label>
+				Email
+				<input type='email' value={email} onChange={handleEmailInput} />
+			</label>
+			<label>
+				Hasło
+				<input
+					type='password'
+					value={password}
+					onChange={handlePasswordInput}
+				/>
+			</label>
+			<button
+				className={styles.passwordForgotBtn}
+				onClick={handlePasswordForgot}>
+				Zapomniałeś hasła?
+			</button>
+			<button className={styles.loginBtn} onClick={handleLoginBtn}>
+				Zaloguj się
+			</button>
+		</div>
 	);
 };
 

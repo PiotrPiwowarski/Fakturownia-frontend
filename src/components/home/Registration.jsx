@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useStore from '../useStore';
+import styles from './Registration.module.css';
 
-const Registration = () => {
+const Registration = ({setDisplayedComponent}) => {
 	const navigate = useNavigate();
 	const { url } = useStore();
 
@@ -11,7 +12,7 @@ const Registration = () => {
 	const [lastName, setLastName] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState(null);
+	const [password, setPassword] = useState('');
 	const [repeatedPassword, setRepeatedPassword] = useState('');
 	const [error, setError] = useState('');
 
@@ -43,7 +44,7 @@ const Registration = () => {
 		navigate('/');
 	};
 
-	const onClickRegister = async () => {
+	const handleRegistrationBtn = async () => {
 		if (
 			firstName.length === 0 ||
 			lastName.length === 0 ||
@@ -83,7 +84,7 @@ const Registration = () => {
 				console.log(response);
 
 				setError('');
-				navigate('/login');
+				setDisplayedComponent('login');
 			} catch (e) {
 				setError('Rejestracja zakończona niepowodzeniem');
 			}
@@ -91,83 +92,50 @@ const Registration = () => {
 	};
 
 	return (
-		<div className='app'>
-			<button className='app-h1-button' onClick={handleHeaderBtn}>
-				FAKTUROWNIA
-			</button>
-			<div className='app-form'>
-				<h2>Zarejestruj się</h2>
-				<p className='app-error'>{error}</p>
-				<label className='app-label'>
-					* imię
-					<input
-						className='app-input'
-						type='text'
-						value={firstName}
-						placeholder=''
-						onChange={handleFirstNameInput}
-						required
-					/>
-				</label>
-				<label className='app-label'>
-					* nazwisko
-					<input
-						className='app-input'
-						type='text'
-						value={lastName}
-						placeholder=''
-						onChange={handleLastNameInput}
-						required
-					/>
-				</label>
-				<label className='app-label'>
-					nr. telefonu
-					<input
-						className='app-input'
-						type='text'
-						value={phoneNumber}
-						placeholder=''
-						onChange={handlePhoneNumberInput}
-					/>
-				</label>
-				<label className='app-label'>
-					* email
-					<input
-						className='app-input'
-						type='email'
-						value={email}
-						placeholder=''
-						onChange={handleEmailInput}
-						required
-					/>
-				</label>
-				<label className='app-label'>
-					* hasło
-					<input
-						className='app-input'
-						type='password'
-						value={password}
-						placeholder=''
-						onChange={handlePasswordInput}
-						required
-					/>
-				</label>
-				<label className='app-label'>
-					* powtórz hasło
-					<input
-						className='app-input'
-						type='password'
-						value={repeatedPassword}
-						placeholder=''
-						onChange={handleRepeatedPasswordInput}
-						required
-					/>
-				</label>
-				<p className='app-paragraph'>* wymagane pola</p>
-				<button className='app-button' onClick={onClickRegister}>
-					zarejestruj się
-				</button>
+		<div className={styles.form}>
+			<div className={styles.header}>
+				<h1>Przywitajmy się.</h1>
 			</div>
+			<p className={styles.error}>{error}</p>
+			<label>
+				Imię
+				<input type='text' value={firstName} onChange={handleFirstNameInput} />
+			</label>
+			<label>
+				Nazwisko
+				<input type='text' value={lastName} onChange={handleLastNameInput} />
+			</label>
+			<label>
+				Numer telefonu
+				<input
+					type='text'
+					value={phoneNumber}
+					onChange={handlePhoneNumberInput}
+				/>
+			</label>
+			<label>
+				Email
+				<input type='email' value={email} onChange={handleEmailInput} />
+			</label>
+			<label>
+				Hasło
+				<input
+					type='password'
+					value={password}
+					onChange={handlePasswordInput}
+				/>
+			</label>
+			<label>
+				Powtórz hasło
+				<input
+					type='password'
+					value={repeatedPassword}
+					onChange={handleRepeatedPasswordInput}
+				/>
+			</label>
+			<button className={styles.loginBtn} onClick={handleRegistrationBtn}>
+				Zarejestruj się
+			</button>
 		</div>
 	);
 };
