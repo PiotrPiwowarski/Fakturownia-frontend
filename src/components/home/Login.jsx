@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { ReactComponent as Logo } from '../../img/logo.svg';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../useStore';
 import axios from 'axios';
-import styles from './Login.module.css';
+import styles from './Home.module.css';
 
-const Login = ({ setDisplayedComponent }) => {
+const Login = () => {
 	const navigate = useNavigate();
 	const { url } = useStore();
 
@@ -13,8 +14,16 @@ const Login = ({ setDisplayedComponent }) => {
 	const [error, setError] = useState('');
 
 	const handleRegisterBtn = () => {
-		setDisplayedComponent('registration');
+		navigate('/registration');
 	};
+
+	const handleLogoBtn = () => {
+		navigate('/');
+	}
+
+	const handlePasswordForgot = () => {
+		navigate('/passwordForgot');
+	}
 
 	const handleEmailInput = (e) => {
 		setEmail(e.target.value);
@@ -23,8 +32,6 @@ const Login = ({ setDisplayedComponent }) => {
 	const handlePasswordInput = (e) => {
 		setPassword(e.target.value);
 	};
-
-	const handlePasswordForgot = () => {};
 
 	const handleLoginBtn = async () => {
 		if (email.length === 0 || password.length === 0) {
@@ -51,37 +58,48 @@ const Login = ({ setDisplayedComponent }) => {
 	};
 
 	return (
-		<div className={styles.form}>
-			<h1>Zaczynijmy.</h1>
-			<p className={styles.error}>{error}</p>
-			<div className={styles.registration}>
-				<p>
-					Nie masz jeszcze konta?{' '}
-					<button className={styles.registerBtn} onClick={handleRegisterBtn}>
-						Zarejestruj się.
-					</button>
-				</p>
+		<div className={styles.bgc}>
+			<div className={styles.header}>
+				<button className={styles.logoButton} onClick={handleLogoBtn}>
+					<Logo className={styles.logo} />
+				</button>
 			</div>
-			<label>
-				Email
-				<input type='email' value={email} onChange={handleEmailInput} />
-			</label>
-			<label>
-				Hasło
-				<input
-					type='password'
-					value={password}
-					onChange={handlePasswordInput}
-				/>
-			</label>
-			<button
-				className={styles.passwordForgotBtn}
-				onClick={handlePasswordForgot}>
-				Zapomniałeś hasła?
-			</button>
-			<button className={styles.loginBtn} onClick={handleLoginBtn}>
-				Zaloguj się
-			</button>
+			<div className={styles.main}>
+				<div className={styles.content}>
+					<div className={styles.form}>
+						<h1>Zaczynijmy.</h1>
+						<p className={styles.error}>{error}</p>
+						<p>
+								Nie masz jeszcze konta?{' '}
+								<button
+									className={styles.registerBtn}
+									onClick={handleRegisterBtn}>
+									Zarejestruj się.
+								</button>
+							</p>
+						<label>
+							Email
+							<input type='email' value={email} onChange={handleEmailInput} />
+						</label>
+						<label>
+							Hasło
+							<input
+								type='password'
+								value={password}
+								onChange={handlePasswordInput}
+							/>
+						</label>
+						<button
+							className={styles.passwordForgotBtn}
+							onClick={handlePasswordForgot}>
+							Zapomniałeś hasła?
+						</button>
+						<button className={styles.loginBtn} onClick={handleLoginBtn}>
+							Zaloguj się
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };
