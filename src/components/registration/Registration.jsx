@@ -84,7 +84,7 @@ const Registration = ({ setDisplayedComponent }) => {
 				paymentPlan,
 			};
 
-			const response = await axios.post(
+			await axios.post(
 				`${url}/api/users/register`,
 				newUserDto,
 				{
@@ -93,8 +93,6 @@ const Registration = ({ setDisplayedComponent }) => {
 					},
 				}
 			);
-
-			console.log(response);
 
 			setError('');
 			navigate('/');

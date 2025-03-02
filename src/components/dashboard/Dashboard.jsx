@@ -11,12 +11,14 @@ import AppMenu from '../menu/AppMenu';
 import UserAccount from '../user/UserAccount';
 import Settings from '../user/Settings';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useUrlStore } from '../useStore';
 
 const Dashboard = () => {
+	const { url } = useUrlStore();
 	const navigate = useNavigate();
 	const [activeMenu, setActiveMenu] = useState('app');
 	const [activePage, setActivePage] = useState('statistics');
-	const [error, setError] = useState('');
 
 	const handleAppMenuBtn = () => {
 		setActiveMenu('app');
@@ -46,11 +48,31 @@ const Dashboard = () => {
 		setActivePage('settings');
 	};
 
-	const handleLogoutBtn = () => {
+	const handleLogoutBtn = async () => {
 		try {
+			const jwt = localStorage.getItem('jwt');
+			if (!jwt) {
+				return;
+			}
 
+			await axios.post(
+				`${url}/api/users/logout`,
+				{},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${jwt}`,
+					},
+				}
+			);
+		} catch (e) {
+			console.error(e.message);
+		}
+		try {
+			localStorage.removeItem('jwt');
+			localStorage.removeItem('role');
 		} catch(e) {
-			setError();
+			console.log(e.message);
 		}
 		navigate('/');
 	};
