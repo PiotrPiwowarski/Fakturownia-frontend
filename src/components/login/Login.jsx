@@ -1,29 +1,32 @@
 import { ReactComponent as Logo } from '../../img/logo.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useStore from '../useStore';
+import { useUrlStore } from '../useStore';
 import axios from 'axios';
-import styles from './Home.module.css';
+import styles from './Login.module.css';
 
 const Login = () => {
 	const navigate = useNavigate();
-	const { url } = useStore();
+	const { url } = useUrlStore();
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
 	const handleRegisterBtn = () => {
-		navigate('/registration');
+		navigate('/choosePlan');
 	};
 
 	const handleLogoBtn = () => {
+		setEmail('');
+		setPassword('');
+		setError('');
 		navigate('/');
-	}
+	};
 
 	const handlePasswordForgot = () => {
 		navigate('/passwordForgot');
-	}
+	};
 
 	const handleEmailInput = (e) => {
 		setEmail(e.target.value);
@@ -36,24 +39,24 @@ const Login = () => {
 	const handleLoginBtn = async () => {
 		if (email.length === 0 || password.length === 0) {
 			setError('Wypełnij wszystkie pola formularza');
-		} else {
-			setError('');
-			try {
-				const loginDto = {
-					email,
-					password,
-				};
-				const response = await axios.post(`${url}/api/users/login`, loginDto, {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				});
-				localStorage.setItem('jwt', response.data.token);
-				localStorage.setItem('role', response.data.role);
-				navigate('/dashboard');
-			} catch (e) {
-				setError('Logowanie zakończone niepowodzeniem');
-			}
+			return;
+		}
+		setError('');
+		try {
+			const loginDto = {
+				email,
+				password,
+			};
+			const response = await axios.post(`${url}/api/users/login`, loginDto, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			localStorage.setItem('jwt', response.data.token);
+			localStorage.setItem('role', response.data.role);
+			navigate('/dashboard');
+		} catch (e) {
+			setError(e.response.data);
 		}
 	};
 
@@ -67,16 +70,16 @@ const Login = () => {
 			<div className={styles.main}>
 				<div className={styles.content}>
 					<div className={styles.form}>
-						<h1>Zaczynijmy.</h1>
+						<h1>Logowanie.</h1>
 						<p className={styles.error}>{error}</p>
 						<p>
-								Nie masz jeszcze konta?{' '}
-								<button
-									className={styles.registerBtn}
-									onClick={handleRegisterBtn}>
-									Zarejestruj się.
-								</button>
-							</p>
+							Nie masz jeszcze konta?{' '}
+							<button
+								className={styles.registerBtn}
+								onClick={handleRegisterBtn}>
+								Zarejestruj się.
+							</button>
+						</p>
 						<label>
 							Email
 							<input type='email' value={email} onChange={handleEmailInput} />

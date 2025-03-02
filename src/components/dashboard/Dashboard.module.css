@@ -1,0 +1,136 @@
+.main {
+	width: 100%;
+	height: 100%;
+
+    display: flex;
+}
+
+.sectionHead {
+	background-color: var(--main-color);
+	width: 90vw;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	margin-bottom: 40px;
+}
+
+.sectionHead h1, .sectionHead label, .sectionHead p {
+	color: white;
+	font-weight: bold;
+}
+
+input {
+	color: #444;
+	
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	width: 100%
+}
+
+.horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    width: 200px;
+    margin: 0px 20px;
+}
+
+.content {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	min-height: 100%;
+    width: 100vw;
+	margin: 10px;;
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	width: 100%;
+	height: 10%;
+	max-height: 100px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.logoButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background: none;
+	padding: 0;
+	cursor: pointer;
+	width: 200px;
+}
+
+.logo {
+	height: 80%;
+}
+
+.userButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	background: none;
+	padding: 0;
+	cursor: pointer;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 40px;
+	text-align: center;
+	margin: 20px;
+}
+
+p {
+	text-align: center;
+}
+
+.error {
+	color: #f22613;
+}
+
+.tile {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-start;
+
+	width: 30vw;
+	height: 40vw;
+	min-height: 400px;
+	min-width: 350px;
+	max-height: 600px;
+	max-width: 600px;
+
+	padding: 50px;
+	margin: 10px;
+	border-radius: 10px;
+
+	background-color: white;
+}
+
+.createInvoiceButton {
+	background-color: #ffde21;
+	color: white;
+	font-weight: bold;
+	border-radius: 10px;
+	padding: 10px 20px;
+	margin: 20px;
+	border: none;
+}

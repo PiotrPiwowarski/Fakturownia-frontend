@@ -1,0 +1,15 @@
+.contener {
+    width: 100%;
+    min-height: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.component {
+    background-color: white;
+    width: 70%;
+    height: 20%;
+}

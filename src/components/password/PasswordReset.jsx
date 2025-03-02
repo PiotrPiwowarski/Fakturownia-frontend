@@ -1,14 +1,15 @@
-import styles from './Home.module.css';
+import styles from './Password.module.css';
 import { ReactComponent as Logo } from './../../img/logo.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import useStore from '../useStore';
+import { useUrlStore } from '../useStore';
 
-const PasswordReset = ({ setDisplayedComponent }) => {
-
+const PasswordReset = () => {
 	const navigate = useNavigate();
-	const {url} = useStore();
+	const { url } = useUrlStore();
+	const location = useLocation();
+	const email = location.state;
 
 	const [resetToken, setResetToken] = useState('');
 	const [newPassword, setNewPassword] = useState('');
@@ -16,6 +17,7 @@ const PasswordReset = ({ setDisplayedComponent }) => {
 	const [error, setError] = useState('');
 
 	const handleLogoBtn = () => {
+		setError('');
 		navigate('/');
 	};
 
@@ -33,29 +35,34 @@ const PasswordReset = ({ setDisplayedComponent }) => {
 
 	const handleResetBtn = async () => {
 		try {
-			if(newPassword.length === 0 || repeatedNewPassword === 0) {
+			if (newPassword.length === 0 || repeatedNewPassword === 0) {
 				setError('Należy wypełnić wszystkie pola');
-			} else if(newPassword.length < 5) {
-				setError('Hasło musi mieć co najmniej 5 znaków')
-			}else if (newPassword !== repeatedNewPassword) {
-				setError('Powtórzone hasło musi być takie jak pierwotne')
-			} else {
-				const email = localStorage.getItem('resetTokenEmail');
-				const resetPasswordDto = {
-					email,
-					resetToken,
-					newPassword
-				}
-				await axios.put(`${url}/api/users/resetPassword`, resetPasswordDto, {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				});
-				navigate('/');
-				localStorage.removeItem('resetTokenEmail');
+				return;
 			}
-		} catch(e) {
-			setError('Błąd resetowania hasła');
+
+			if (newPassword.length < 5) {
+				setError('Hasło musi mieć co najmniej 5 znaków');
+				return;
+			}
+
+			if (newPassword !== repeatedNewPassword) {
+				setError('Powtórzone hasło musi być takie jak pierwotne');
+				return;
+			}
+
+			const resetPasswordDto = {
+				email,
+				resetToken,
+				newPassword,
+			};
+			await axios.put(`${url}/api/users/resetPassword`, resetPasswordDto, {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			navigate('/passwordResetSuccess');
+		} catch (e) {
+			navigate('/passwordResetFailure');
 		}
 	};
 
@@ -69,12 +76,13 @@ const PasswordReset = ({ setDisplayedComponent }) => {
 			<div className={styles.main}>
 				<div className={styles.content}>
 					<div className={styles.form}>
-						<h1>Zresetujmy.</h1>
+						<h1>Resetowanie hasła.</h1>
 						<p className={styles.error}>{error}</p>
 						<p className={styles.bold}>
-								Na twój email został wysłany token. W celu zresetowania dotychczasowego hasła wprowadź go do formularza
-								wraz z nowym hasłem.
-							</p>
+							Na twój email został wysłany token. W celu zresetowania
+							dotychczasowego hasła wprowadź go do formularza wraz z nowym
+							hasłem.
+						</p>
 						<label>
 							Token
 							<input

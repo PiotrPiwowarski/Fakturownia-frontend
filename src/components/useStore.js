@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 
-const useStore = create(() => ({
-    url: 'http://localhost:8080'
+export const useUrlStore = create(() => ({
+	url: 'http://localhost:8080',
 }));
 
-export default useStore;
+export const useEmailStore = create((set) => ({
+	email: '',
+    setEmail: (email) => set({email}),
+    clearEmail: () => set({email: ''})
+}));

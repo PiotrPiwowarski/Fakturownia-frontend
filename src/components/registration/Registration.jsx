@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import useStore from '../useStore';
-import styles from './Home.module.css';
+import { useUrlStore } from '../useStore';
+import styles from './Registration.module.css';
 import { ReactComponent as Logo } from '../../img/logo.svg';
 
 const Registration = ({ setDisplayedComponent }) => {
 	const navigate = useNavigate();
-	const { url } = useStore();
+	const location = useLocation();
+	const paymentPlan = location.state;
+	const { url } = useUrlStore();
 
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
@@ -54,42 +56,50 @@ const Registration = ({ setDisplayedComponent }) => {
 			password.length === 0
 		) {
 			setError('Należy wypełnić wszystkie pola');
-		} else if (password.length < 5) {
+			return;
+		}
+
+		if (password.length < 5) {
 			setError('Hasło musi mieć co najmniej 5 znaków');
-		} else if (password !== repeatedPassword) {
+			return;
+		}
+
+		if (password !== repeatedPassword) {
 			setError('Powtórzone hasło musi być takie jak pierwotne');
-		} else if (!email.includes('@')) {
+		}
+
+		if (!email.includes('@')) {
 			setError('Niepoprawny email');
-		} else if (password.length < 5) {
-			setError('Hasło musi zawierać przynajmniej pięć znaków');
-		} else {
+			return;
+		}
+		setError('');
+
+		try {
+			const newUserDto = {
+				firstName,
+				lastName,
+				phoneNumber,
+				email,
+				password,
+				paymentPlan,
+			};
+
+			const response = await axios.post(
+				`${url}/api/users/register`,
+				newUserDto,
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+
+			console.log(response);
+
 			setError('');
-			try {
-				const newUserDto = {
-					firstName,
-					lastName,
-					phoneNumber,
-					email,
-					password,
-				};
-
-				const response = await axios.post(
-					`${url}/api/users/register`,
-					newUserDto,
-					{
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					}
-				);
-
-				console.log(response);
-
-				setError('');
-				setDisplayedComponent('login');
-			} catch (e) {
-				setError('Rejestracja zakończona niepowodzeniem');
-			}
+			navigate('/');
+		} catch (e) {
+			setError('Rejestracja zakończyła się niepowodzeniem');
 		}
 	};
 
@@ -103,7 +113,7 @@ const Registration = ({ setDisplayedComponent }) => {
 			<div className={styles.main}>
 				<div className={styles.content}>
 					<div className={styles.form}>
-						<h1>Poznajmy się.</h1>
+						<h1>Rejestracja.</h1>
 						<p className={styles.error}>{error}</p>
 						<label>
 							Imię

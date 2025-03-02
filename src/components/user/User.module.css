@@ -1,0 +1,51 @@
+.sectionHead {
+	background-color: var(--main-color);
+	width: 90vw;
+	min-height: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
+.sectionHead h1, .sectionHead label, .sectionHead p {
+	color: white;
+}
+
+.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%
+}
+
+.horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: flex-start;
+	min-height: 100%;
+    width: 100vw;
+	margin: 50px 0px;
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 40px;
+	text-align: center;
+	margin: 20px;
+}
+
+p {
+	text-align: center;
+}
+
+.error {
+	color: #f22613;
+}

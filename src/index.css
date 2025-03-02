@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    --main-color: #83DE04;
+	--main-color-hover: #83de048d;
+	--main-color-active: #83de0464;
+	--grey-color: #444;
+	--light-green-color: #beff56;
+	--dark-green-color: #4b8704;
+}
+
 * {
 	box-sizing: border-box;
 	margin: 0;
@@ -8,6 +17,7 @@
 
 body {
 	font-family: 'Montserrat', serif;
+	background: rgb(240, 239, 239);
 }
 
 html,
@@ -16,10 +26,17 @@ body {
 	font-size: 20px;
 }
 
-/* APLIKACJA */
-h1 {
-	color: white;
+h1, h2, p {
+	color: var(--grey-color);
 }
+
+
+
+
+
+
+
+
 .app {
 	display: flex;
 	min-height: 100vh;
