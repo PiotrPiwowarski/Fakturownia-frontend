@@ -1,13 +1,13 @@
 import styles from './Menu.module.css';
 
-const AppMenu = ({
+const ProMenu = ({
 	activePage,
 	handleStatisticsBtn,
 	handleInvoicesBtn,
 	handleCompaniesBtn,
 }) => {
 	return (
-		<div className={styles.menu}>
+		<div className={styles.menuPro}>
 			<button
 				className={`${styles.menuButton} ${
 					activePage === 'statistics' ? styles.activeButton : ''
@@ -33,4 +33,4 @@ const AppMenu = ({
 	);
 };
 
-export default AppMenu;
+export default ProMenu;

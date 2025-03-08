@@ -2,23 +2,20 @@ import styles from './Dashboard.module.css';
 import { ReactComponent as Logo } from '../../img/logo.svg';
 import { useState } from 'react';
 import UserIcon from '../../img/UserIcon';
-import MenuIcon from './../../img/MenuIcon';
-import Statistics from './Statistics';
+import MenuIcon from '../../img/MenuIcon';
 import Invoices from './Invoices';
-import Companies from './Companies';
 import UserMenu from '../menu/UserMenu';
-import AppMenu from '../menu/AppMenu';
-import UserAccount from '../user/UserAccount';
+import LiteMenu from '../menu/LiteMenu';
 import Settings from '../user/Settings';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUrlStore } from '../useStore';
 
-const Dashboard = () => {
+const DashboardLite = () => {
 	const { url } = useUrlStore();
 	const navigate = useNavigate();
 	const [activeMenu, setActiveMenu] = useState('app');
-	const [activePage, setActivePage] = useState('statistics');
+	const [activePage, setActivePage] = useState('invoices');
 
 	const handleAppMenuBtn = () => {
 		setActiveMenu('app');
@@ -28,16 +25,8 @@ const Dashboard = () => {
 		setActiveMenu('user');
 	};
 
-	const handleStatisticsBtn = () => {
-		setActivePage('statistics');
-	};
-
 	const handleInvoicesBtn = () => {
 		setActivePage('invoices');
-	};
-
-	const handleCompaniesBtn = () => {
-		setActivePage('companies');
 	};
 
 	const handleUserAccountBtn = () => {
@@ -71,14 +60,15 @@ const Dashboard = () => {
 		try {
 			localStorage.removeItem('jwt');
 			localStorage.removeItem('role');
-		} catch(e) {
+			localStorage.removeItem('paymentPlan');
+		} catch (e) {
 			console.log(e.message);
 		}
 		navigate('/');
 	};
 
 	const handleLogoBtn = () => {
-		setActivePage('statistics');
+		setActivePage('invoices');
 	};
 
 	return (
@@ -98,11 +88,9 @@ const Dashboard = () => {
 				<div className={styles.dashboard}></div>
 				<div className={styles.vertical}>
 					{activeMenu === 'app' ? (
-						<AppMenu
+						<LiteMenu
 							activePage={activePage}
-							handleStatisticsBtn={handleStatisticsBtn}
 							handleInvoicesBtn={handleInvoicesBtn}
-							handleCompaniesBtn={handleCompaniesBtn}
 						/>
 					) : (
 						<UserMenu
@@ -112,21 +100,18 @@ const Dashboard = () => {
 							handleLogoutBtn={handleLogoutBtn}
 						/>
 					)}
-					{activePage === 'statistics' ? (
-						<Statistics />
-					) : activePage === 'invoices' ? (
+					{activePage === 'invoices' ? (
 						<Invoices />
-					) : activePage === 'companies' ? (
-						<Companies />
-					) : activePage === 'userAccount' ? (
-						<UserAccount />
 					) : (
 						<Settings />
 					)}
 				</div>
 			</div>
+			<div className={styles.footer}>
+				<p>Copyright &copy; 2025 All Rights Reserved</p>
+			</div>
 		</div>
 	);
 };
 
-export default Dashboard;
+export default DashboardLite;

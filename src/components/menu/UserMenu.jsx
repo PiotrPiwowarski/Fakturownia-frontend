@@ -7,7 +7,7 @@ const UserMenu = ({
 	handleLogoutBtn,
 }) => {
 	return (
-		<div className={styles.menu}>
+		<div className={styles.userMenu}>
 			<button
 				className={`${styles.menuButton} ${
 					activePage === 'userAccount' ? styles.activeButton : ''

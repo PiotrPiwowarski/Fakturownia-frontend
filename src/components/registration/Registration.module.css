@@ -112,7 +112,7 @@ input {
 	align-items: flex-start;
 
 	width: 30vw;
-	height: 30vw;
+	height: auto;
 	min-height: 500px;
 	min-width: 350px;
 	max-height: 600px;
@@ -138,4 +138,16 @@ li {
 
 	display: flex;
 	justify-content: center;
+}
+
+.footer {
+	height: 200px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.green {
+	color: var(--main-color);
 }

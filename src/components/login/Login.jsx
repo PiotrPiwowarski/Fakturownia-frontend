@@ -54,9 +54,16 @@ const Login = () => {
 			});
 			localStorage.setItem('jwt', response.data.token);
 			localStorage.setItem('role', response.data.role);
-			navigate('/dashboard');
+			localStorage.setItem('paymentPlan', response.data.paymentPlan);
+			if(response.data.paymentPlan === 'PRO') {
+				console.log(response.data.paymentPlan)
+				navigate('/dashboardPro');
+			} else {
+				console.log(response.data.paymentPlan)
+				navigate('/dashboardLite');
+			}
 		} catch (e) {
-			setError(e.response.data);
+			setError('Błąd logowania');
 		}
 	};
 
@@ -102,6 +109,9 @@ const Login = () => {
 						</button>
 					</div>
 				</div>
+			</div>
+			<div className={styles.footer}>
+					<p>Copyright &copy; 2025 All Rights Reserved</p>
 			</div>
 		</div>
 	);

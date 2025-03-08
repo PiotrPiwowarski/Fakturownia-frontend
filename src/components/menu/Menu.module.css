@@ -1,10 +1,31 @@
-.menu {
+.menuPro {
     padding-top: 20px;
 	width: 50vw;
 	min-width: 400px;
 
     display: flex;
 	justify-content: space-between;
+	align-items: center;
+}
+
+.menuLite {
+	padding-top: 20px;
+	width: 50vw;
+	min-width: 400px;
+
+    display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.userMenu {
+	padding-top: 20px;
+	width: 50vw;
+	min-width: 400px;
+
+    display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .menuButton {
@@ -25,7 +46,7 @@
 }
 
 .activeButton {
-	background-color: #ffde21;
+	background-color: #f8c705;;
 	color: white;
 	border-radius: 10px;
 }

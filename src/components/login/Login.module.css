@@ -141,3 +141,11 @@ input {
 .loginBtn:active {
 	background-color: var(--main-color-active);
 }
+
+.footer {
+	height: 200px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

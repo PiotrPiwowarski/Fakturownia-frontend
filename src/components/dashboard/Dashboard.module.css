@@ -107,32 +107,38 @@ p {
 
 .tile {
 	display: flex;
+	flex-wrap: wrap;
 	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-start;
-
-	width: 30vw;
-	height: 40vw;
-	min-height: 400px;
-	min-width: 350px;
-	max-height: 600px;
-	max-width: 600px;
-
-	padding: 50px;
-	margin: 10px;
+	justify-content: space-around;
+	align-items: center;
+	width: 30%;
+	height: 350px;
+	padding-top: 50px;
 	border-radius: 10px;
+	text-align: center;
+	background-color: #fff;
+}
 
-	background-color: white;
+.tile p{ 
+	font-size: 30px;
 }
 
 .createInvoiceButton {
-	background-color: #ffde21;
+	background-color: #f8c705;
 	color: white;
 	font-weight: bold;
 	border-radius: 10px;
 	padding: 10px 20px;
 	margin: 20px;
 	border: none;
+}
+
+.createInvoiceButton:hover {
+	background-color: #ffde21b1;
+}
+
+.createInvoiceButton:active {
+	background-color: #ffde2176;
 }
 
 .statisticHeader {
@@ -150,5 +156,52 @@ p {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	align-items: center;
+}
+
+.footer {
+	height: 200px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.component {
+    background-color: white;
+    width: 90%;
+    min-height: 150px;
+    margin: 10px;
+    border-radius: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.marginBottom {
+    background-color: var(--main-color);
+}
+
+.marginBottom p {
+    color: white;
+    font-weight: bold;
+	text-decoration: underline;
+}
+
+.statisticsSection {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.statistics {
+	width: 90%;
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 	align-items: center;
 }

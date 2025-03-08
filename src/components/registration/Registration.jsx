@@ -163,6 +163,9 @@ const Registration = ({ setDisplayedComponent }) => {
 					</div>
 				</div>
 			</div>
+			<div className={styles.footer}>
+					<p>Copyright &copy; 2025 All Rights Reserved</p>
+			</div>
 		</div>
 	);
 };
