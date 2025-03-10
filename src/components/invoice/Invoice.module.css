@@ -225,3 +225,22 @@ label {
     justify-content: center;
     align-items: center;
 }
+
+.createInvoiceButton {
+    background-color: transparent;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin: 10px;
+
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+}
+
+.createInvoiceButton:hover {
+	background-color: var(--main-color);
+    color: white;
+}
+
+.createInvoiceButton:active {
+    background-color: var(--main-color-active);;
+}

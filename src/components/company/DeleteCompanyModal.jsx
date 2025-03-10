@@ -35,7 +35,7 @@ const DeleteCompanyModal = ({
 	return (
 		<div className={styles.modalBgc}>
 			<div className={styles.modalContent}>
-				<p>Czy na pewno chcesz usunąć tą fakturę?</p>
+				<p>Czy na pewno chcesz usunąć tą firmę?</p>
 				<div className={styles.buttonSection}>
 					<button className={styles.deleteButton} onClick={handleYesBtn}>
 						Tak

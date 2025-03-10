@@ -275,7 +275,7 @@ const ThirdStep = ({ setThirdStep, setDisplayedStep, setIsModalOpen, scrollToTop
 				<button className={styles.previewButton} onClick={handlePreviewStepBtn}>
 					Wróć
 				</button>
-				<button className={styles.previewButton} onClick={handleAddInvoiceBtn}>
+				<button className={styles.createInvoiceButton} onClick={handleAddInvoiceBtn}>
 					Stwórz fakture
 				</button>
 			</div>

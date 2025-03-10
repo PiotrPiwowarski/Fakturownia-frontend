@@ -56,7 +56,6 @@ const Login = () => {
 			localStorage.setItem('role', response.data.role);
 			localStorage.setItem('paymentPlan', response.data.paymentPlan);
 			if(response.data.paymentPlan === 'PRO') {
-				console.log(response.data.paymentPlan)
 				navigate('/dashboardPro');
 			} else {
 				console.log(response.data.paymentPlan)

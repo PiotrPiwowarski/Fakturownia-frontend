@@ -8,7 +8,7 @@
 .sectionHead {
 	background-color: var(--main-color);
 	width: 90vw;
-	min-height: 300px;
+	height: 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

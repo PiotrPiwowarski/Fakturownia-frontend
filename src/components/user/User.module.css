@@ -1,7 +1,7 @@
 .sectionHead {
 	background-color: var(--main-color);
 	width: 90vw;
-	min-height: 300px;
+	height: 100px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -48,4 +48,166 @@ p {
 
 .error {
 	color: #f22613;
+}
+
+.userData {
+	background-color: white;
+	width: 90%;
+	height: auto;
+	margin: 50px 0px;
+	padding: 50px 0px;
+	border-radius: 10px;
+	display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.column {
+	width: 50%;
+    height: 100%;
+	display: flex;
+    flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 0px 20px;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.singleData {
+	width: 100%;
+	display: flex;
+
+}
+
+.changeDataButton {
+    background-color: transparent;
+    padding: 5px 15px;
+    border-radius: 5px;
+    margin: 10px;
+
+    color: #444;
+    border: 1px solid #444;
+}
+
+.changeDataButton:hover {
+    background-color: #444;
+    color: white;
+}
+
+.changeDataButton:active {
+    background-color: #444444a6;
+    border-color: #444444a6;
+}
+
+.modalBgc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.52);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContent {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 60px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.buttonSection {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.xIcon {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    top: 15px;
+    right: 15px;
+}
+
+.deleteButton {
+    background-color: transparent;
+    padding: 5px 15px;
+    border-radius: 5px;
+
+    color: red;
+    border: 1px solid red;
+}
+
+.deleteButton:hover {
+    background-color: red;
+    color: white;
+}
+
+.deleteButton:active {
+    background-color: rgba(255, 0, 0, 0.692);
+    border-color: rgba(255, 0, 0, 0.692);
+}
+
+.yesButton {
+    background-color: transparent;
+    padding: 5px 15px;
+    border-radius: 5px;
+
+    color: var(--main-color);
+    border: 1px solid var(--main-color);
+}
+
+.yesButton:hover {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: white;
+}
+
+.yesButton:active {
+    background-color: var(--main-color-hover);
+    border-color: var(--main-color-hover);
+}
+
+.plans {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile {
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.active, .active h2, .active p {
+    background-color: var(--main-color);
+    color: white;
+}
+
+.important {
+    font-weight: bold;
+    text-decoration: underline;
 }

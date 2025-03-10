@@ -7,6 +7,7 @@ import Invoices from './Invoices';
 import UserMenu from '../menu/UserMenu';
 import LiteMenu from '../menu/LiteMenu';
 import Settings from '../user/Settings';
+import UserAccount from '../user/UserAccount';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUrlStore } from '../useStore';
@@ -102,7 +103,7 @@ const DashboardLite = () => {
 					)}
 					{activePage === 'invoices' ? (
 						<Invoices />
-					) : (
+					) : activePage === 'userAccount' ? (<UserAccount />) : (
 						<Settings />
 					)}
 				</div>
