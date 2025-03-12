@@ -62,6 +62,7 @@ const PasswordReset = () => {
 			});
 			navigate('/passwordResetSuccess');
 		} catch (e) {
+			console.log(e.message);
 			navigate('/passwordResetFailure');
 		}
 	};

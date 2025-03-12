@@ -37,7 +37,8 @@ const PasswordForgot = () => {
 			navigate('/passwordReset', { state: email });
 			setError('');
 		} catch (e) {
-			setError(e.response.data);
+			console.log(e.message);
+			setError("Błąd resetowania hasła");
 		}
 	};
 

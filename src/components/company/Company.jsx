@@ -1,16 +1,13 @@
 import styles from './Company.module.css';
-import { useUrlStore } from '../useStore';
 import {useState} from 'react';
-import axios from 'axios';
 import DeleteCompanyModal from './DeleteCompanyModal';
 
 
 const Company = ({company, setError, onDeleteSuccess}) => {
-	const { url } = useUrlStore();
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
 	const handleDeleteBtn = () => {
-		setIsModalOpen(true);
+		setIsDeleteModalOpen(true);
 	}
 
     return (
@@ -27,7 +24,7 @@ const Company = ({company, setError, onDeleteSuccess}) => {
 			<div className={styles.delete}>
 				<button className={styles.deleteButton} onClick={handleDeleteBtn}>Usuń</button>
 			</div>
-			{isModalOpen && <DeleteCompanyModal invoice={company} setError={setError} onDeleteSuccess={onDeleteSuccess} setIsModalOpen={setIsModalOpen} />}
+			{isDeleteModalOpen && <DeleteCompanyModal company={company} setError={setError} onDeleteSuccess={onDeleteSuccess} setIsModalOpen={setIsDeleteModalOpen} />}
 		</div>
 	);
 }

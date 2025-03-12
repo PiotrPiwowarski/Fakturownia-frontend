@@ -35,6 +35,7 @@ const UserAccount = () => {
 			setPhoneNumber(data.phoneNumber);
 			setError('');
 		} catch (e) {
+			console.log(e.message);
 			setError('Błąd pobierania danych użytkownika');
 		}
 	};
@@ -177,6 +178,7 @@ const EditUserAccountModal = ({
 			await fetchData();
 			setError('');
 		} catch (e) {
+			console.log(e.message);
 			setError('Edycja danych zakończyła się niepowodzeniem');
 		}
 	};

@@ -121,13 +121,16 @@
 }
 
 .modalContent {
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding: 40px 60px;
     background-color: white;
     border-radius: 10px;
+    min-width: 50%;
+    max-height: 80%;
+    overflow-y: auto;
 }
 
 .buttonSection {
@@ -135,4 +138,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.xIcon {
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    top: 15px;
+    right: 15px;
 }

@@ -1,6 +1,7 @@
-import axios from 'axios';
-import { useUrlStore } from '../useStore';
 import styles from './Company.module.css';
+import { useUrlStore } from '../useStore';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteCompanyModal = ({
 	setError,
@@ -9,12 +10,17 @@ const DeleteCompanyModal = ({
 	setIsModalOpen,
 }) => {
 	const { url } = useUrlStore();
+	const navigate = useNavigate();
 
 	const handleYesBtn = async () => {
 		try {
 			const id = company.id;
-			console.log(id);
 			const jwt = localStorage.getItem('jwt');
+			if(!jwt) {
+				navigate('/');
+				return;
+			}
+			console.log(id);
 			await axios.delete(`${url}/api/companies/${id}`, {
 				headers: {
 					'Content-Type': 'application/json',
@@ -22,8 +28,10 @@ const DeleteCompanyModal = ({
 				},
 			});
 			onDeleteSuccess();
+			setIsModalOpen(false);
 			setError('');
 		} catch (e) {
+			console.log(e.message);
 			setError('Usuwanie firmy się nie powiodło');
 		}
 	};

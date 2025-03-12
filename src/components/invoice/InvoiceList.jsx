@@ -31,6 +31,7 @@ const InvoiceList = () => {
 			setInvoices(response.data);
 			setError('');
 		} catch (e) {
+			console.log(e.message);
 			setError('Błąd pobierania faktur');
 		}
 	};
@@ -62,7 +63,7 @@ const InvoiceList = () => {
 				<p>Brak faktur do wyświetlenia.</p>
 			) : (
 				invoices.map((invoice) => {
-					return <Invoice invoice={invoice} setError={setError} onDeleteSuccess={fetchData} />;
+					return <Invoice key={invoice.id} invoice={invoice} setError={setError} onDeleteSuccess={fetchData} />;
 				})
 			)}
 		</div>

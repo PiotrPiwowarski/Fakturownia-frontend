@@ -25,6 +25,7 @@ const Settings = () => {
 			});
 			setPaymentPlan(response.data.paymentPlan);
 		} catch (e) {
+			console.log(e.message);
 			setError('Błąd pobierania danych');
 		}
 	};

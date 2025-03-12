@@ -58,10 +58,10 @@ const Login = () => {
 			if(response.data.paymentPlan === 'PRO') {
 				navigate('/dashboardPro');
 			} else {
-				console.log(response.data.paymentPlan)
 				navigate('/dashboardLite');
 			}
 		} catch (e) {
+			console.log(e.message);
 			setError('Błąd logowania');
 		}
 	};

@@ -26,6 +26,7 @@ const Statistics = () => {
 				});
 				setStatistics(response.data);
 			} catch (e) {
+				console.log(e.message);
 				setError('Błąd pobierania statystyk');
 			}
 		};
@@ -45,16 +46,16 @@ const Statistics = () => {
 					<h2>W liczbach</h2>
 					<div className={styles.statistics}>
 						<div className={styles.tile}>
-							<h2>Ilość wystawionych faktur</h2>
-							<p>{statistics.amount}</p>
+							<h2>{statistics.amount}</h2>
+							<p>Ilość wystawionych faktur</p>
 						</div>
 						<div className={styles.tile}>
-							<h2>Przychód netto</h2>
-							<p>{statistics.sumNettoValue} zł</p>
+						<h2>{statistics.sumNettoValue} zł</h2>
+							<p>Przychód netto</p>
 						</div>
 						<div className={styles.tile}>
-							<h2>Średnia wartość faktury</h2>
-							<p>{statistics.averageInvoiceValue} zł</p>
+						<h2>{statistics.averageInvoiceValue} zł</h2>
+							<p>Średnia wartość faktury</p>
 						</div>
 					</div>
 				</div>

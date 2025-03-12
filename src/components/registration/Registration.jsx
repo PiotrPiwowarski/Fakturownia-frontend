@@ -97,6 +97,7 @@ const Registration = ({ setDisplayedComponent }) => {
 			setError('');
 			navigate('/');
 		} catch (e) {
+			console.log(e.message);
 			setError('Rejestracja zakończyła się niepowodzeniem');
 		}
 	};
