@@ -1,44 +1,7 @@
 import Invoice from './Invoice';
 import styles from './Invoice.module.css';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { useUrlStore } from '../useStore';
-import { useNavigate } from 'react-router-dom';
 
-const InvoiceList = () => {
-	const { url } = useUrlStore();
-	const navigate = useNavigate();
-	const [invoices, setInvoices] = useState([]);
-	const [error, setError] = useState('');
-
-	const fetchData = async () => {
-		try {
-			const jwt = localStorage.getItem('jwt');
-			const paymentPlan = localStorage.getItem('paymentPlan');
-			if (!jwt) {
-				navigate('/');
-				return;
-			}
-			if(!paymentPlan) {
-				setError('Brak danych o planie płatnicznym');
-			}
-			const response = await axios.get(`${url}/api/invoices`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${jwt}`,
-				},
-			});
-			setInvoices(response.data);
-			setError('');
-		} catch (e) {
-			console.log(e.message);
-			setError('Błąd pobierania faktur');
-		}
-	};
-
-	useEffect(() => {
-		fetchData();
-	}, []);
+const InvoiceList = ({error, setError, invoices, fetchData}) => {
 
 	return (
 		<div className={styles.contener}>

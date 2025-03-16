@@ -1,8 +1,7 @@
 import Company from './Company';
 import styles from './Company.module.css';
 
-const CompanyList = ({companies, error, fetchData, setError}) => {
-
+const CompanyList = ({error, setError, companies, fetchData}) => {
 
 	return (
 		<div className={styles.contener}>

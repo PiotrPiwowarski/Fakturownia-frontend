@@ -2,7 +2,7 @@ import styles from './Invoice.module.css';
 import { useState, useRef } from 'react';
 import XIcon from '../../img/XIcon';
 
-const AddNewInvoiceModal = ({ setIsModalOpen }) => {
+const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 	const modalRef = useRef(null);
 	const [displayedStep, setDisplayedStep] = useState('first');
 	const [secondStep, setSecondStep] = useState(false);
@@ -24,7 +24,7 @@ const AddNewInvoiceModal = ({ setIsModalOpen }) => {
 	}
 
 	const handleXIconBtn = () => {
-		setIsModalOpen(false);
+		setIsAddModalOpen(false);
 	};
 
 	return (
@@ -71,7 +71,7 @@ const AddNewInvoiceModal = ({ setIsModalOpen }) => {
 					<ThirdStep
 						setThirdStep={setThirdStep}
 						setDisplayedStep={setDisplayedStep}
-						setIsModalOpen={setIsModalOpen}
+						setIsModalOpen={setIsAddModalOpen}
 						scrollToTop={scrollToTop}
 					/>
 				)}

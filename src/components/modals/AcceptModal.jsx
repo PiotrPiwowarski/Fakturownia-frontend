@@ -1,9 +1,8 @@
 import styles from './Modals.module.css';
 import XIcon from '../../img/XIcon';
-import {useState} from 'react';
+import { useState } from 'react';
 
 const AcceptModal = ({ title, onYesFunction, onNoFunction }) => {
-
 	const [error, setError] = useState('');
 
 	return (
@@ -14,11 +13,11 @@ const AcceptModal = ({ title, onYesFunction, onNoFunction }) => {
 				</button>
 				<p>{title}</p>
 				<p className={styles.error}>{error}</p>
-				<div className={styles.buttonsSection}>
-					<button className={styles.yesBtn} onClick={() => onYesFunction(setError)}>
-						Tak
-					</button>
-				</div>
+				<button
+					className={styles.yesBtn}
+					onClick={() => onYesFunction(setError)}>
+					Tak
+				</button>
 			</div>
 		</div>
 	);

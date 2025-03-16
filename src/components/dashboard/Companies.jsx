@@ -7,16 +7,17 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Companies = () => {
-	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-	const handleAddCompanyBtn = () => {
-		setIsAddModalOpen(true);
-	}
+	const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+	const [error, setError] = useState('');
+	const [companies, setCompanies] = useState([]);
 
 	const { url } = useUrlStore();
 	const navigate = useNavigate();
-	const [companies, setCompanies] = useState([]);
-	const [error, setError] = useState('');
+
+	const handleAddNewCompanyBtn = () => {
+		setIsAddModalOpen(true);
+	}
 
 	const fetchData = async () => {
 		try {
@@ -48,9 +49,9 @@ const Companies = () => {
 			<div className={styles.sectionHead}>
 				<h1>Firmy.</h1>
 			</div>
-			<button className={styles.createInvoiceButton} onClick={handleAddCompanyBtn}>Dodaj nową firmę</button>
-			<CompanyList companies={companies} error={error} setError={setError} fetchData={fetchData} />
-			{isAddModalOpen && <AddNewCompanyModal setIsAddModalOpen={setIsAddModalOpen}  fetchData={fetchData} onDeleteSuccess={fetchData} />}
+			<button className={styles.createInvoiceButton} onClick={handleAddNewCompanyBtn}>Dodaj nową firmę</button>
+			{isAddModalOpen && <AddNewCompanyModal error={error} setError={setError} setIsAddModalOpen={setIsAddModalOpen}  fetchData={fetchData}  />}
+			<CompanyList error={error} setError={setError} companies={companies} fetchData={fetchData} />
 		</div>
 	);
 };
