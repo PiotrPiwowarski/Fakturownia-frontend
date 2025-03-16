@@ -45,16 +45,16 @@ const InvoiceList = () => {
 			<p className={styles.error}>{error}</p>
 			<div className={`${styles.component} ${styles.marginBottom}`}>
 				<div className={styles.number}>
-					<p className={styles.underline}>Numer</p>
+					<p>Numer</p>
 				</div>
 				<div className={styles.dateOfIssue}>
-					<p className={styles.underline}>Data wystawienia</p>
+					<p>Data wystawienia</p>
 				</div>
 				<div className={styles.customer}>
-					<p className={styles.underline}>Klient</p>
+					<p>Klient</p>
 				</div>
 				<div className={styles.nettoValue}>
-					<p className={styles.underline}>Wartość netto</p>
+					<p>Wartość netto</p>
 				</div>
 				<div className={styles.preview}></div>
 				<div className={styles.delete}></div>
@@ -63,7 +63,7 @@ const InvoiceList = () => {
 				<p>Brak faktur do wyświetlenia.</p>
 			) : (
 				invoices.map((invoice) => {
-					return <Invoice key={invoice.id} invoice={invoice} setError={setError} onDeleteSuccess={fetchData} />;
+					return <Invoice key={invoice.id} invoice={invoice} setError={setError} fetchData={fetchData} />;
 				})
 			)}
 		</div>

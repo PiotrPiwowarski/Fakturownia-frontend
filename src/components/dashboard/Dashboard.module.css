@@ -6,7 +6,7 @@
 }
 
 .sectionHead {
-	background-color: var(--main-color);
+	background-color: var(--green);
 	width: 90vw;
 	height: 100px;
 	display: flex;
@@ -23,7 +23,7 @@
 }
 
 input {
-	color: #444;
+	color: var(--grey);
 	
 }
 
@@ -102,7 +102,7 @@ p {
 }
 
 .error {
-	color: #f22613;
+	color: var(--red);
 }
 
 .tile {

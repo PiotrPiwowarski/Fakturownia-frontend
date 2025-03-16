@@ -68,7 +68,7 @@ h1 {
 }
 
 .error {
-	color: #f22613;
+	color: var(--red);
 }
 
 p {
@@ -79,7 +79,7 @@ p {
 	display: inline;
 	font-size: inherit;
 	background-color: #fff;
-	color: var(--main-color);
+	color: var(--green);
 	border: none;
 	line-height: 20px;
 }
@@ -128,18 +128,18 @@ input {
 	margin: 20px;
 	width: 200px;
 
-	background-color: var(--main-color);
+	background-color: var(--green);
 	color: white;
 	border: none;
 	border-radius: 5px;
 }
 
 .loginBtn:hover {
-	background-color: var(--main-color-hover);
+	background-color: var(--green-hover);
 }
 
 .loginBtn:active {
-	background-color: var(--main-color-active);
+	background-color: var(--green-active);
 }
 
 .footer {

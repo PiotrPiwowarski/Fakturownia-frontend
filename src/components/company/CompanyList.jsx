@@ -9,10 +9,10 @@ const CompanyList = ({companies, error, fetchData, setError}) => {
 			<p className={styles.error}>{error}</p>
 			<div className={`${styles.component} ${styles.marginBottom}`}>
 				<div className={styles.name}>
-					<p className={styles.underline}>Nazwa</p>
+					<p>Nazwa</p>
 				</div>
 				<div className={styles.nip}>
-					<p className={styles.underline}>NIP</p>
+					<p>NIP</p>
 				</div>
 				<div className={styles.preview}>
 					

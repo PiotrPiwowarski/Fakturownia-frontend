@@ -24,7 +24,7 @@ const AddNewCompanyModal = ({ setIsAddModalOpen, fetchData }) => {
 		setIsAddModalOpen(false);
 	};
 
-    const handleAddBtn = () => {
+    const handleAddBtn = async () => {
         if(companyName === '' || street === '' || buildingNumber === '' || postCode === '' || city === '' || nip === '') {
             setError('Należy wypełnić wszystkie pola formularza');
             return;
@@ -47,7 +47,7 @@ const AddNewCompanyModal = ({ setIsAddModalOpen, fetchData }) => {
         }
         try {
 
-            axios.post(`${url}/api/companies`, newCompanyDto, {
+            await axios.post(`${url}/api/companies`, newCompanyDto, {
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: `Bearer ${jwt}`,

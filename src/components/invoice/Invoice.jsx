@@ -2,13 +2,37 @@ import styles from './Invoice.module.css';
 import {useState} from 'react';
 import { useUrlStore } from '../useStore';
 import axios from 'axios';
+import AcceptModal from '../modals/AcceptModal';
+import { useNavigate } from 'react-router-dom';
 
-const Invoice = ({invoice, setError, onDeleteSuccess}) => {
+const Invoice = ({invoice, setError, fetchData}) => {
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const navigate = useNavigate();
+	const { url } = useUrlStore();
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-	const handleDeleteBtn = async () => {
-		setIsModalOpen(true);
+	const handleDeleteBtn = () => {
+		setIsDeleteModalOpen(true);
+	}
+
+	const deleteInvoice = async () => {
+		const jwt = localStorage.getItem('jwt');
+		if (!jwt) {
+			navigate('/');
+			return;
+		}
+		try {
+			await axios.delete(`${url}/api/invoices/${invoice.id}`, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
+			fetchData();
+			setIsDeleteModalOpen(false);
+		} catch (e) {
+			setError('Usuwanie faktury zakończone niepowodzeniem');
+		}
 	};
 
 	return (
@@ -33,58 +57,9 @@ const Invoice = ({invoice, setError, onDeleteSuccess}) => {
 					Usuń
 				</button>
 			</div>
-			{isModalOpen && <DeleteInvoiceModal invoice={invoice} setError={setError} onDeleteSuccess={onDeleteSuccess} setIsModalOpen={setIsModalOpen} />}
+			{isDeleteModalOpen && <AcceptModal title='Czy na pewno chcesz usunąć fakturę' onYesFunction={deleteInvoice} onNoFunction={() => setIsDeleteModalOpen(false)} />}
 		</div>
 	);
 };
 
 export default Invoice;
-
-const DeleteInvoiceModal = ({
-	invoice,
-	setError,
-	onDeleteSuccess,
-	setIsModalOpen,
-}) => {
-	const { url } = useUrlStore();
-
-	const handleYesBtn = async () => {
-		try {
-			setError('');
-			const id = invoice.id;
-			console.log(id);
-			const jwt = localStorage.getItem('jwt');
-			await axios.delete(`${url}/api/invoices/${id}`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${jwt}`,
-				},
-			});
-			onDeleteSuccess();
-			setIsModalOpen(false);
-		} catch (e) {
-			console.log(e.message);
-			setError('Usuwanie faktury się nie powiodło');
-		}
-	};
-
-	const handleNoBtn = () => {
-		setIsModalOpen(false);
-	};
-
-	return (
-		<div className={styles.modalBgc}>
-			<div className={styles.deleteModalContent}>
-				<p>Czy na pewno chcesz usunąć tą fakturę?</p>
-				<div className={styles.buttonSection}>
-					<button className={styles.deleteButton} onClick={handleYesBtn}>
-						Tak
-					</button>
-					<button className={styles.previewButton} onClick={handleNoBtn}>
-						Nie
-					</button>
-				</div>
-			</div>
-		</div>
-	);
-};

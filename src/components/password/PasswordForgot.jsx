@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useUrlStore } from '../useStore';
+import AcceptModal from '../modals/AcceptModal';
 
 const PasswordForgot = () => {
 	const navigate = useNavigate();
@@ -12,6 +13,7 @@ const PasswordForgot = () => {
 
 	const [error, setError] = useState('');
 	const [email, setEmail] = useState('');
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleLogoBtn = () => {
 		setError('');
@@ -22,7 +24,15 @@ const PasswordForgot = () => {
 		setEmail(e.target.value);
 	};
 
-	const handleResetBtn = async () => {
+	const setNewPassword = () => {
+		if(email === '') {
+			setError('Podaj email');
+			return;
+		}
+		setIsModalOpen(true);
+	}
+
+	const handleYesFunction = async () => {
 		try {
 			await axios.post(
 				`${url}/api/users/sendResetPasswordToken`,
@@ -42,6 +52,11 @@ const PasswordForgot = () => {
 		}
 	};
 
+	const handleNoFunction = () => {
+		setIsModalOpen(false);
+		navigate('/');
+	}
+
 	return (
 		<div className={styles.bgc}>
 			<div className={styles.header}>
@@ -53,18 +68,19 @@ const PasswordForgot = () => {
 				<div className={styles.content}>
 					<div className={styles.form}>
 						<h1>Odzyskiwanie hasła.</h1>
-						<p className={styles.important}>Poczekaj na automatyczne przekierowanie po naciśnięciu przycisku tworzenia nowego hasła</p>
+						<p className={styles.bold}>Poczekaj na automatyczne przekierowanie po naciśnięciu przycisku tworzenia nowego hasła</p>
 						<p className={styles.error}>{error}</p>
 						<label>
 							Email
 							<input type='email' value={email} onChange={handleEmailInput} />
 						</label>
-						<button className={styles.loginBtn} onClick={handleResetBtn}>
+						<button className={styles.loginBtn} onClick={setNewPassword}>
 							Ustaw nowe hasło
 						</button>
 					</div>
 				</div>
 			</div>
+			{isModalOpen && <AcceptModal title={"Czy chcesz zresetować hasło?"} onYesFunction={handleYesFunction} onNoFunction={handleNoFunction}  />}
 		</div>
 	);
 };
