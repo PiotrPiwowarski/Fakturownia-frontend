@@ -1,27 +1,28 @@
-import styles from './Company.module.css';
+import styles from './Modals.module.css';
 import XIcon from '../../img/XIcon';
-import {useState} from 'react';
+import { useState } from 'react';
 import EditCompanyModal from './EditCompanyModal';
 
-const PreviewModal = ({ company, setIsPreviewModalOpen, fetchData }) => {
-
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+const CompanyModal = ({ company, setIsPreviewModalOpen, fetchData }) => {
+	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
 	const handleXIconBtn = () => {
 		setIsPreviewModalOpen(false);
 	};
 
-    const handleEditBtn = () => {
-        setIsEditModalOpen(true);
-    }
+	const handleEditBtn = () => {
+		setIsEditModalOpen(true);
+	};
 
 	return (
-		<div className={styles.modalBgc}>
-			<div className={styles.modalContent}>
-				<button className={styles.xIcon} onClick={handleXIconBtn}>
+		<div className={styles.background}>
+			<div className={styles.component}>
+				<button className={styles.xBtn} onClick={handleXIconBtn}>
 					<XIcon />
 				</button>
-				<h2>{company.name}</h2>
+				<div className={styles.header}>
+					<h2>{company.name}</h2>
+				</div>
 				<dl>
 					<dt>Ulica</dt>
 					<dd>{company.street}</dd>
@@ -46,11 +47,19 @@ const PreviewModal = ({ company, setIsPreviewModalOpen, fetchData }) => {
 						</>
 					)}
 				</dl>
-				<button  className={styles.previewButton} onClick={handleEditBtn}>Edytuj</button>
-                {isEditModalOpen && <EditCompanyModal setIsEditModalOpen={setIsEditModalOpen} company={company} fetchData={fetchData} />}
+				<button className={styles.yesBtn} onClick={handleEditBtn}>
+					Edytuj
+				</button>
+				{isEditModalOpen && (
+					<EditCompanyModal
+						setIsEditModalOpen={setIsEditModalOpen}
+						company={company}
+						fetchData={fetchData}
+					/>
+				)}
 			</div>
 		</div>
 	);
 };
 
-export default PreviewModal;
+export default CompanyModal;

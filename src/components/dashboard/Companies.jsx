@@ -1,7 +1,7 @@
 import styles from './Dashboard.module.css';
 import CompanyList from '../company/CompanyList';
 import {useState, useEffect} from 'react';
-import AddNewCompanyModal from '../company/AddNewCompanyModal';
+import AddNewCompanyModal from '../modals/AddNewCompanyModal';
 import { useUrlStore } from '../useStore';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

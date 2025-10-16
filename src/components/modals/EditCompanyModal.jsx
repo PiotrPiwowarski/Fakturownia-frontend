@@ -1,4 +1,4 @@
-import styles from './Company.module.css';
+import styles from './Modals.module.css';
 import XIcon from '../../img/XIcon';
 import {useState} from 'react';
 import axios from 'axios';
@@ -55,6 +55,7 @@ const EditCompanyModal = ({setIsEditModalOpen, company, fetchData}) => {
 				},
 			});
 			await fetchData();
+            setIsEditModalOpen(false);
 			setError('');
 		} catch (e) {
 			setError('Edycja firmy zakończyła się niepowodzeniem');
@@ -62,9 +63,9 @@ const EditCompanyModal = ({setIsEditModalOpen, company, fetchData}) => {
     }
 
 	return (
-		<div className={styles.modalBgc}>
-			<div className={styles.modalContent}>
-            <button className={styles.xIcon} onClick={handleXIconBtn}>
+		<div className={styles.background}>
+			<div className={styles.component}>
+            <button className={styles.xBtn} onClick={handleXIconBtn}>
 					<XIcon />
 				</button>
 				<h2>Edytuj</h2>
@@ -101,7 +102,7 @@ const EditCompanyModal = ({setIsEditModalOpen, company, fetchData}) => {
                     Numer konta
                     <input value={newAccountNumber} type='text' onChange={(e) => setNewAccountNumber(e.target.value)} />
                 </label>
-                <button className={styles.previewButton} onClick={handleEditBtn}>Edytuj</button>
+                <button className={styles.yesBtn} onClick={handleEditBtn}>Edytuj</button>
 			</div>
 		</div>
 	);

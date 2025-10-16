@@ -1,10 +1,11 @@
 import styles from './Company.module.css';
 import { useState } from 'react';
 import AcceptModal from '../modals/AcceptModal';
-import PreviewModal from './PreviewModal';
+import CompanyModal from '../modals/CompanyModal';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useUrlStore } from '../useStore';
+
 
 const Company = ({ company, fetchData }) => {
 	const navigate = useNavigate();
@@ -67,7 +68,7 @@ const Company = ({ company, fetchData }) => {
 				/>
 			)}
 			{isPreviewModalOpen && (
-				<PreviewModal
+				<CompanyModal
 					company={company}
 					setIsPreviewModalOpen={setIsPreviewModalOpen}
 					fetchData={fetchData}

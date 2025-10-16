@@ -1,4 +1,4 @@
-import styles from './Company.module.css';
+import styles from './Modals.module.css';
 import XIcon from '../../img/XIcon';
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -73,9 +73,9 @@ const AddNewCompanyModal = ({ setIsAddModalOpen, fetchData }) => {
     }
 
 	return (
-		<div className={styles.modalBgc}>
-			<div className={styles.modalContent}>
-				<button className={styles.xIcon} onClick={handleXIconBtn}>
+		<div className={styles.background}>
+			<div className={styles.component}>
+				<button className={styles.xBtn} onClick={handleXIconBtn}>
 					<XIcon />
 				</button>
 				<h2>Dodaj firmę</h2>
@@ -112,7 +112,7 @@ const AddNewCompanyModal = ({ setIsAddModalOpen, fetchData }) => {
                     Numer konta
 					<input type='text' value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)} />
 				</label>
-                <button className={styles.previewButton} onClick={handleAddBtn}>Dodaj</button>
+                <button className={styles.yesBtn} onClick={handleAddBtn}>Dodaj</button>
 			</div>
 		</div>
 	);

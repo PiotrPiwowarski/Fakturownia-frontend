@@ -1,18 +1,24 @@
 import styles from './Invoice.module.css';
-import {useState} from 'react';
+import { useState } from 'react';
 import { useUrlStore } from '../useStore';
 import axios from 'axios';
 import AcceptModal from '../modals/AcceptModal';
 import { useNavigate } from 'react-router-dom';
+import InvoiceModal from '../modals/InvoiceModal';
 
-const Invoice = ({invoice, setError, fetchData}) => {
-
+const Invoice = ({ invoice, setError, fetchData }) => {
 	const navigate = useNavigate();
 	const { url } = useUrlStore();
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+	const [showDetails, setShowDetails] = useState(false);
 
 	const handleDeleteBtn = () => {
 		setIsDeleteModalOpen(true);
+	};
+
+	const handleViewButton = () => {
+		setShowDetails(prev => !prev);
+		console.log(showDetails);
 	}
 
 	const deleteInvoice = async () => {
@@ -37,6 +43,7 @@ const Invoice = ({invoice, setError, fetchData}) => {
 
 	return (
 		<div className={styles.component}>
+			<InvoiceModal showDetails={showDetails} setShowDetails={setShowDetails} />
 			<div className={styles.number}>
 				<p>{invoice.invoiceNumber}</p>
 			</div>
@@ -50,14 +57,22 @@ const Invoice = ({invoice, setError, fetchData}) => {
 				<p>{invoice.sumNetto}</p>
 			</div>
 			<div className={styles.preview}>
-				<button className={styles.previewButton}>Podgląd</button>
+				<button className={styles.previewButton} onClick={handleViewButton}>Podgląd</button>
 			</div>
 			<div className={styles.delete}>
-				<button className={styles.deleteButton} onClick={handleDeleteBtn}>
+				<button
+					className={styles.deleteButton}
+					onClick={handleDeleteBtn}>
 					Usuń
 				</button>
 			</div>
-			{isDeleteModalOpen && <AcceptModal title='Czy na pewno chcesz usunąć fakturę' onYesFunction={deleteInvoice} onNoFunction={() => setIsDeleteModalOpen(false)} />}
+			{isDeleteModalOpen && (
+				<AcceptModal
+					title='Czy na pewno chcesz usunąć fakturę'
+					onYesFunction={deleteInvoice}
+					onNoFunction={() => setIsDeleteModalOpen(false)}
+				/>
+			)}
 		</div>
 	);
 };

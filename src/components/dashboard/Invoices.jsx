@@ -1,6 +1,6 @@
 import styles from './Dashboard.module.css';
 import InvoiceList from '../invoice/InvoiceList';
-import AddNewInvoiceModal from '../invoice/AddNewInvoiceModal';
+import AddNewInvoiceModal from '../modals/AddNewInvoiceModal';
 import {useState, useEffect} from 'react';
 import { useUrlStore } from '../useStore';
 import { useNavigate } from 'react-router-dom';
