@@ -43,7 +43,7 @@ const Invoice = ({ invoice, setError, fetchData }) => {
 
 	return (
 		<div className={styles.component}>
-			<InvoiceModal showDetails={showDetails} setShowDetails={setShowDetails} />
+			<InvoiceModal showDetails={showDetails} setShowDetails={setShowDetails} invoice={invoice}  />
 			<div className={styles.number}>
 				<p>{invoice.invoiceNumber}</p>
 			</div>
