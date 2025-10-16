@@ -283,4 +283,9 @@ label {
     display: inline;
 }
 
+.printBtn {
+    background-color: #fff;
+    border: none;
+}
+
 
