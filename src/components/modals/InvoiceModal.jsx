@@ -17,7 +17,9 @@ const InvoiceModal = ({ showDetails, setShowDetails, invoice }) => {
 						onClick={handleXIconBtn}>
 						<XIcon />
 					</button>
-					<InvoiceView invoice={invoice} />
+					<div className={styles.invoiceScroll}>
+						<InvoiceView invoice={invoice} />
+					</div>
 				</div>
 			</div>
 		</div>

@@ -250,7 +250,11 @@ label {
 	height: 297mm;
 	padding: 20mm;
 	margin: auto;
-    font-size: 12px;
+	font-size: 12px;
+}
+
+.invoiceView h1, .invoiceView h2 {
+	font-size: 1rem;
 }
 
 .dates {
@@ -265,27 +269,54 @@ label {
 }
 
 .companies {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
 }
 
 .subject {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 .subject p {
-    margin: 2px;
-    display: inline;
+	margin: 2px;
+	display: inline;
 }
 
 .printBtn {
-    background-color: #fff;
-    border: none;
+	background-color: #fff;
+	border: none;
 }
 
+.productTable {
+	min-width: 100%;
+}
 
+table {
+	min-width: 100%;
+	margin-top: 20px;
+}
+
+table thead {
+	background-color: grey;
+}
+
+th {
+	color: white;
+	border: 1px solid white;
+}
+
+.sum {
+	margin-top: 40px;
+}
+
+.bgc {
+	background-color: grey;
+	color: white;
+	font-weight: bold;
+}

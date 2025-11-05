@@ -6,8 +6,7 @@ import React, { useRef } from 'react';
 const InvoiceView = ({ invoice }) => {
 	const contentRef = useRef();
 
-	const handlePrint = useReactToPrint({contentRef
-	});
+	const handlePrint = useReactToPrint({ contentRef });
 
 	return (
 		<div>
@@ -68,6 +67,61 @@ const InvoiceView = ({ invoice }) => {
 						</p>
 						<p>{invoice.deadlineOfPayment}</p>
 					</div>
+				</div>
+
+				<div className={styles.productTable}>
+					<table>
+						<thead>
+							<tr>
+								<th>Nazwa</th>
+								<th>Ilość</th>
+								<th>J. m.</th>
+								<th>Cena j.</th>
+								<th>Wartość netto</th>
+								<th>% vat</th>
+								<th>Kwota vat</th>
+								<th>Wartość brutto</th>
+							</tr>
+						</thead>
+						<tbody>
+							{invoice.getInvoicePositionDtoList.map((p) => (
+								<tr>
+									<td>{p.name}</td>
+									<td>{p.amount}</td>
+									<td>{p.unitOfMeasure}</td>
+									<td>{p.unitPrice}</td>
+									<td>{p.nettoValue}</td>
+									<td>{p.vatPercent}</td>
+									<td>{p.vatValue}</td>
+									<td>{p.bruttoValue}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+
+				<div className={styles.productTable}>
+					<table>
+						<thead>
+							<tr>
+								<th>suma netto</th>
+								<th>suma vat</th>
+								<th>suma brutto</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{invoice.sumNetto}</td>
+								<td>{invoice.sumVat}</td>
+								<td>{invoice.sumBrutto}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div className={styles.sum}>
+					<div className={styles.bgc}>W sumie do zapłaty: </div>
+					<div>{invoice.sumBrutto}</div>
 				</div>
 			</div>
 		</div>
