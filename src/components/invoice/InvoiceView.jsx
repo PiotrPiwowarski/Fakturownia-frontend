@@ -59,13 +59,14 @@ const InvoiceView = ({ invoice }) => {
 						</div>
 						<p>NIP: {invoice.buyerCompanyNip}</p>
 						<p>
+							Sposób zapłaty:{' '}
 							{invoice.methodOfPayment === 'TRANSFER'
 								? 'przelew'
 								: invoice.methodOfPayment === 'CARD'
 								? 'karta'
 								: 'gotówka'}
 						</p>
-						<p>{invoice.deadlineOfPayment}</p>
+						<p>Termin Zapłaty {invoice.deadlineOfPayment}</p>
 					</div>
 				</div>
 
