@@ -52,6 +52,36 @@ const PaymentPlanModal = ({
 		} catch (e) {
 			setError('Edycja planu zakończyła się niepowodzeniem');
 		}
+
+		//nowa część
+
+		try {
+			const jwt = localStorage.getItem('jwt');
+			if (!jwt) {
+				return;
+			}
+
+			await axios.post(
+				`${url}/api/users/logout`,
+				{},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${jwt}`,
+					},
+				}
+			);
+		} catch (e) {
+			console.error(e.message);
+		}
+		try {
+			localStorage.removeItem('jwt');
+			localStorage.removeItem('role');
+			localStorage.removeItem('paymentPlan');
+		} catch (e) {
+			console.log(e.message);
+		}
+		navigate('/');
 	};
 
 	const handleNoBtn = () => {

@@ -91,18 +91,18 @@ input {
 	margin: 20px;
 	width: 200px;
 
-	background-color: var(--main-color);
+	background-color: #83DE04;
 	color: white;
 	border: none;
 	border-radius: 5px;
 }
 
 .loginBtn:hover {
-	background-color: var(--main-color-hover);
+	background-color: #83de048d
 }
 
 .loginBtn:active {
-	background-color: var(--main-color-active);
+	background-color: #83de0464;
 }
 
 .tile {
@@ -138,6 +138,7 @@ li {
 
 	display: flex;
 	justify-content: center;
+	background-color: #83DE04;
 }
 
 .footer {
