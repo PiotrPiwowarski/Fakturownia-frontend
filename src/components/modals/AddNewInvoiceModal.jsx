@@ -8,9 +8,9 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 	const [secondStep, setSecondStep] = useState(false);
 	const [thirdStep, setThirdStep] = useState(false);
 
-	const [sumNetto, setSumNetto] = useState('');
-	const [sumBrutto, setSumBrutto] = useState('');
-	const [sumVat, setSumVat] = useState('');
+	const [sumNetto, setSumNetto] = useState(0);
+	const [sumBrutto, setSumBrutto] = useState(0);
+	const [sumVat, setSumVat] = useState(0);
 
 	const [invoiceNumber, setInvoiceNumber] = useState('');
 	const [dateOfIssue, setDateOfIssue] = useState('');
@@ -26,8 +26,8 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 	const [sellerCompanyPostCode, setSellerCompanyPostCode] = useState('');
 	const [sellerCompanyCity, setSellerCompanyCity] = useState('');
 	const [sellerCompanyNip, setSellerCompanyNip] = useState('');
-	const [sellerCompanyBankName, setSellerCompanyBankName] = useState(null);
-	const [sellerCompanyBankNumber, setSellerCompanyBanknumber] = useState(null);
+	const [sellerCompanyBankName, setSellerCompanyBankName] = useState('');
+	const [sellerCompanyBankNumber, setSellerCompanyBankNumber] = useState('');
 
 	const [buyerCompanyName, setBuyerComanyName] = useState('');
 	const [buyerCompanyStreet, setBuyerCompanyStreet] = useState('');
@@ -41,6 +41,8 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 
 	const [invoicePositions, setInvoicePositions] = useState([]);
 
+	const [error, setError] = useState('');
+
 	const scrollToTop = () => {
 		if (modalRef.current) {
 			modalRef.current.scrollTo({ top: 0, behavior: 'smooth' });
@@ -48,10 +50,76 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 	};
 
 	const handleXIconBtn = () => {
+		setSumNetto('');
+		setSumBrutto('');
+		setSumVat('');
+
+		setInvoiceNumber('');
+		setDateOfIssue('');
+		setDateOfSale('');
+		setOriginality('');
+		setMethodOfPayment('');
+		setDeadlineOfPayment('');
+
+		setSellerCompanyName('');
+		setSellerCompanyStreet('');
+		setSellerCompanyBuildingNumber('');
+		setSellerCompanyPostCode('');
+		setSellerCompanyCity('');
+		setSellerCompanyNip('');
+		setSellerCompanyBankName('');
+		setSellerCompanyBankNumber('');
+
+		setBuyerComanyName('');
+		setBuyerCompanyStreet('');
+		setBuyerCompanyBuildingNumber('');
+		setBuyerCompanyPostCode('');
+		setBuyerCompanyCity('');
+		setBuyerCompanyNip('');
+		setBuyerCompanyBankName('');
+		setBuyerCompanyBankNumber('');
+		setInvoicePositions([]);
+
+		setError('');
+
 		setIsAddModalOpen(false);
 	};
 
-	const handleAddBtn = () => {};
+	const handleAddInvoiceBtn = () => {
+		if (
+			invoicePositions.length === 0 ||
+			sumNetto === '' ||
+			sumBrutto === '' ||
+			sumVat === '' ||
+			invoiceNumber === '' ||
+			dateOfIssue === '' ||
+			dateOfSale === '' ||
+			originality === '' ||
+			methodOfPayment === '' ||
+			deadlineOfPayment === '' ||
+			sellerCompanyName === '' ||
+			sellerCompanyStreet === '' ||
+			sellerCompanyBuildingNumber === '' ||
+			sellerCompanyPostCode === '' ||
+			sellerCompanyCity === '' ||
+			sellerCompanyNip === '' ||
+			sellerCompanyBankName === '' ||
+			sellerCompanyBankNumber === '' ||
+			buyerCompanyName === '' ||
+			buyerCompanyStreet === '' ||
+			buyerCompanyBuildingNumber === '' ||
+			buyerCompanyPostCode === '' ||
+			buyerCompanyCity === '' ||
+			buyerCompanyNip === '' ||
+			buyerCompanyBankName === '' ||
+			buyerCompanyBankNumber === ''
+		) {
+			setError('Wypełnij wszystkie pola formularza');
+			scrollToTop();
+		} else {
+			setIsAddModalOpen(false);
+		}
+	};
 
 	return (
 		<div className={styles.background}>
@@ -83,6 +151,7 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 						Pozycje faktury
 					</div>
 				</div>
+				{error && <p className={styles.error}>{error}</p>}
 
 				{displayedStep === 'first' ? (
 					<FirstStep
@@ -129,7 +198,7 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 						sellerCompanyBankName={sellerCompanyBankName}
 						setSellerCompanyBankName={setSellerCompanyBankName}
 						sellerCompanyBankNumber={sellerCompanyBankNumber}
-						setSellerCompanyBankNumber={setSellerCompanyBanknumber}
+						setSellerCompanyBankNumber={setSellerCompanyBankNumber}
 						buyerCompanyName={buyerCompanyName}
 						setBuyerComanyName={setBuyerComanyName}
 						buyerCompanyStreet={buyerCompanyStreet}
@@ -151,10 +220,11 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 					<ThirdStep
 						setThirdStep={setThirdStep}
 						setDisplayedStep={setDisplayedStep}
-						setIsModalOpen={setIsAddModalOpen}
 						scrollToTop={scrollToTop}
 						invoicePositions={invoicePositions}
 						setInvoicePositions={setInvoicePositions}
+						handleAddInvoiceBtn={handleAddInvoiceBtn}
+						setError={setError}
 					/>
 				)}
 			</div>
@@ -267,7 +337,7 @@ const FirstStep = ({
 					/>
 				</label>
 			</div>
-			<div className={styles.formPosition}>
+			{/*<div className={styles.formPosition}>
 				<label>
 					Suma netto
 					<input
@@ -296,7 +366,7 @@ const FirstStep = ({
 						onChange={(e) => setSumVat(e.target.value)}
 					/>
 				</label>
-			</div>
+			</div>*/}
 			<div className={styles.btns}>
 				<button
 					className={styles.yesBtn}
@@ -513,19 +583,20 @@ const SecondStep = ({
 const ThirdStep = ({
 	setThirdStep,
 	setDisplayedStep,
-	setIsModalOpen,
 	scrollToTop,
 	invoicePositions,
 	setInvoicePositions,
+	handleAddInvoiceBtn,
+	setError
 }) => {
 	const [name, setName] = useState('');
 	const [amount, setAmount] = useState('');
 	const [unitOfMeasure, setUnitOfMeasure] = useState('');
 	const [unitPrice, setUnitPrice] = useState('');
-	const [nettoValue, setNettoValue] = useState('');
-	const [vatPercent, setVatPercent] = useState('');
-	const [vatValue, setVatValue] = useState('');
-	const [bruttoValue, setBruttoValue] = useState('');
+	const [nettoValue, setNettoValue] = useState(0);
+	const [vatPercent, setVatPercent] = useState(0);
+	const [vatValue, setVatValue] = useState(0);
+	const [bruttoValue, setBruttoValue] = useState(0);
 
 	const handlePreviewStepBtn = () => {
 		setThirdStep(false);
@@ -533,12 +604,11 @@ const ThirdStep = ({
 		setTimeout(scrollToTop, 0);
 	};
 
-	const handleAddInvoiceBtn = () => {
-		setIsModalOpen(false);
-	};
-
 	const handleAddPositionButton = () => {
-		setInvoicePositions((prev) => [
+		if(name === '' || amount === '' || unitOfMeasure === '' || unitPrice === '' || nettoValue === '' || vatPercent === '' || vatValue === '' || bruttoValue === '') {
+			setError('Wypełnij wszystkie pola formularza');
+		} else {
+setInvoicePositions((prev) => [
 			...prev,
 			{
 				name: name,
@@ -551,6 +621,15 @@ const ThirdStep = ({
 				bruttoValue: bruttoValue,
 			},
 		]);
+		setName('');
+		setAmount('');
+		setUnitOfMeasure('');
+		setUnitPrice('');
+		setNettoValue(0);
+		setVatPercent(0);
+		setVatValue(0);
+		setBruttoValue(0);
+		}
 		setTimeout(scrollToTop, 0);
 	};
 
@@ -577,7 +656,7 @@ const ThirdStep = ({
 							<div>{singlePosition.name}</div>
 							<button
 								className={styles.deleteBtn}
-								onClick={(index) => handleDeletePosition(index)}>
+								onClick={() => handleDeletePosition(index)}>
 								Usuń
 							</button>
 						</div>

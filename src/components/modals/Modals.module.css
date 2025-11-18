@@ -210,3 +210,7 @@
     border: 1px solid rgba(255, 0, 0, 0.538);
     color: white;
 }
+
+.error {
+    color: red;
+}
