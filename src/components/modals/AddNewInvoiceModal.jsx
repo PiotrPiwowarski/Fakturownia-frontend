@@ -1,8 +1,10 @@
 import styles from './Modals.module.css';
 import { useState, useRef } from 'react';
 import XIcon from '../../img/XIcon';
+import axios from 'axios';
+import { useUrlStore } from '../useStore';
 
-const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
+const AddNewInvoiceModal = ({ setIsAddModalOpen, reloadData }) => {
 	const modalRef = useRef(null);
 	const [displayedStep, setDisplayedStep] = useState('first');
 	const [secondStep, setSecondStep] = useState(false);
@@ -27,7 +29,8 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 	const [sellerCompanyCity, setSellerCompanyCity] = useState('');
 	const [sellerCompanyNip, setSellerCompanyNip] = useState('');
 	const [sellerCompanyBankName, setSellerCompanyBankName] = useState('');
-	const [sellerCompanyBankNumber, setSellerCompanyBankNumber] = useState('');
+	const [sellerCompanyBankAccountNumber, setSellerCompanyBankAccountNumber] =
+		useState('');
 
 	const [buyerCompanyName, setBuyerComanyName] = useState('');
 	const [buyerCompanyStreet, setBuyerCompanyStreet] = useState('');
@@ -37,11 +40,14 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 	const [buyerCompanyCity, setBuyerCompanyCity] = useState('');
 	const [buyerCompanyNip, setBuyerCompanyNip] = useState('');
 	const [buyerCompanyBankName, setBuyerCompanyBankName] = useState('');
-	const [buyerCompanyBankNumber, setBuyerCompanyBankNumber] = useState('');
+	const [buyerCompanyBankAccountNumber, setBuyerCompanyBankAccountNumber] =
+		useState('');
 
 	const [invoicePositions, setInvoicePositions] = useState([]);
 
 	const [error, setError] = useState('');
+
+	const { url } = useUrlStore();
 
 	const scrollToTop = () => {
 		if (modalRef.current) {
@@ -68,7 +74,7 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 		setSellerCompanyCity('');
 		setSellerCompanyNip('');
 		setSellerCompanyBankName('');
-		setSellerCompanyBankNumber('');
+		setSellerCompanyBankAccountNumber('');
 
 		setBuyerComanyName('');
 		setBuyerCompanyStreet('');
@@ -77,7 +83,7 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 		setBuyerCompanyCity('');
 		setBuyerCompanyNip('');
 		setBuyerCompanyBankName('');
-		setBuyerCompanyBankNumber('');
+		setBuyerCompanyBankAccountNumber('');
 		setInvoicePositions([]);
 
 		setError('');
@@ -85,7 +91,30 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 		setIsAddModalOpen(false);
 	};
 
-	const handleAddInvoiceBtn = () => {
+	const parseMoney = (value) => {
+		if (value == null) return 0;
+
+		const normalized = String(value)
+			.replace(/\s/g, '')
+			.replace(',', '.')
+			.trim();
+
+		const num = Number(normalized);
+		return isNaN(num) ? 0 : num;
+	};
+
+	const handleAddInvoiceBtn = async () => {
+		const localSumNetto = invoicePositions.reduce((sum, pos) => {
+			return sum + parseMoney(pos.nettoValue);
+		}, 0);
+
+		const localSumBrutto = invoicePositions.reduce((sum, pos) => {
+			return sum + parseMoney(pos.bruttoValue);
+		}, 0);
+
+		const localSumVat = invoicePositions.reduce((sum, pos) => {
+			return sum + parseMoney(pos.vatValue);
+		}, 0);
 		if (
 			invoicePositions.length === 0 ||
 			sumNetto === '' ||
@@ -104,7 +133,7 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 			sellerCompanyCity === '' ||
 			sellerCompanyNip === '' ||
 			sellerCompanyBankName === '' ||
-			sellerCompanyBankNumber === '' ||
+			sellerCompanyBankAccountNumber === '' ||
 			buyerCompanyName === '' ||
 			buyerCompanyStreet === '' ||
 			buyerCompanyBuildingNumber === '' ||
@@ -112,11 +141,55 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 			buyerCompanyCity === '' ||
 			buyerCompanyNip === '' ||
 			buyerCompanyBankName === '' ||
-			buyerCompanyBankNumber === ''
+			buyerCompanyBankAccountNumber === ''
 		) {
 			setError('Wypełnij wszystkie pola formularza');
 			scrollToTop();
 		} else {
+			try {
+				const jwt = localStorage.getItem('jwt');
+				setSumNetto(localSumNetto);
+				setSumBrutto(localSumBrutto);
+				setSumVat(localSumVat);
+				const getInvoiceDto = {
+					invoiceNumber,
+					dateOfIssue,
+					dateOfSale,
+					originality,
+					methodOfPayment,
+					deadlineOfPayment,
+					sellerCompanyName,
+					sellerCompanyStreet,
+					sellerCompanyBuildingNumber,
+					sellerCompanyPostCode,
+					sellerCompanyCity,
+					sellerCompanyNip,
+					sellerCompanyBankName,
+					sellerCompanyBankAccountNumber,
+					buyerCompanyName,
+					buyerCompanyStreet,
+					buyerCompanyBuildingNumber,
+					buyerCompanyPostCode,
+					buyerCompanyCity,
+					buyerCompanyNip,
+					buyerCompanyBankName,
+					buyerCompanyBankAccountNumber,
+					invoicePositions,
+					sumNetto: localSumNetto,
+					sumBrutto: localSumBrutto,
+					sumVat: localSumVat,
+				};
+				await axios.post(`${url}/api/invoices/add`, getInvoiceDto, {
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${jwt}`,
+					},
+				});
+			} catch (e) {
+				console.log(e.message);
+				setError('Błąd tworzenia faktury');
+			}
+			reloadData();
 			setIsAddModalOpen(false);
 		}
 	};
@@ -197,8 +270,10 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 						setSellerCompanyNip={setSellerCompanyNip}
 						sellerCompanyBankName={sellerCompanyBankName}
 						setSellerCompanyBankName={setSellerCompanyBankName}
-						sellerCompanyBankNumber={sellerCompanyBankNumber}
-						setSellerCompanyBankNumber={setSellerCompanyBankNumber}
+						sellerCompanyBankAccountNumber={sellerCompanyBankAccountNumber}
+						setSellerCompanyBankAccountNumber={
+							setSellerCompanyBankAccountNumber
+						}
 						buyerCompanyName={buyerCompanyName}
 						setBuyerComanyName={setBuyerComanyName}
 						buyerCompanyStreet={buyerCompanyStreet}
@@ -213,8 +288,8 @@ const AddNewInvoiceModal = ({ setIsAddModalOpen }) => {
 						setBuyerCompanyNip={setBuyerCompanyNip}
 						buyerCompanyBankName={buyerCompanyBankName}
 						setBuyerCompanyBankName={setBuyerCompanyBankName}
-						buyerCompanyBankNumber={buyerCompanyBankNumber}
-						setBuyerCompanyBankNumber={setBuyerCompanyBankNumber}
+						buyerCompanyBankAccountNumber={buyerCompanyBankAccountNumber}
+						setBuyerCompanyBankAccountNumber={setBuyerCompanyBankAccountNumber}
 					/>
 				) : (
 					<ThirdStep
@@ -250,12 +325,6 @@ const FirstStep = ({
 	setMethodOfPayment,
 	deadlineOfPayment,
 	setDeadlineOfPayment,
-	sumNetto,
-	setSumNetto,
-	sumBrutto,
-	setSumBrutto,
-	sumVat,
-	setSumVat,
 }) => {
 	const handleNextStepBtn = () => {
 		setSecondStep('true');
@@ -337,36 +406,6 @@ const FirstStep = ({
 					/>
 				</label>
 			</div>
-			{/*<div className={styles.formPosition}>
-				<label>
-					Suma netto
-					<input
-						type='text'
-						value={sumNetto}
-						onChange={(e) => setSumNetto(e.target.value)}
-					/>
-				</label>
-			</div>
-			<div className={styles.formPosition}>
-				<label>
-					Suma brutto
-					<input
-						type='text'
-						value={sumBrutto}
-						onChange={(e) => setSumBrutto(e.target.value)}
-					/>
-				</label>
-			</div>
-			<div className={styles.formPosition}>
-				<label>
-					Suma VAT
-					<input
-						type='text'
-						value={sumVat}
-						onChange={(e) => setSumVat(e.target.value)}
-					/>
-				</label>
-			</div>*/}
 			<div className={styles.btns}>
 				<button
 					className={styles.yesBtn}
@@ -397,8 +436,8 @@ const SecondStep = ({
 	setSellerCompanyNip,
 	sellerCompanyBankName,
 	setSellerCompanyBankName,
-	sellerCompanyBankNumber,
-	setSellerCompanyBankNumber,
+	sellerCompanyBankAccountNumber,
+	setSellerCompanyBankAccountNumber,
 	buyerCompanyName,
 	setBuyerComanyName,
 	buyerCompanyStreet,
@@ -413,8 +452,8 @@ const SecondStep = ({
 	setBuyerCompanyNip,
 	buyerCompanyBankName,
 	setBuyerCompanyBankName,
-	buyerCompanyBankNumber,
-	setBuyerCompanyBankNumber,
+	buyerCompanyBankAccountNumber,
+	setBuyerCompanyBankAccountNumber,
 }) => {
 	const handleNextStepBtn = () => {
 		setDisplayedStep('third');
@@ -493,8 +532,8 @@ const SecondStep = ({
 					Numer konta
 					<input
 						type='text'
-						onChange={(e) => setSellerCompanyBankNumber(e.target.value)}
-						value={sellerCompanyBankNumber}
+						onChange={(e) => setSellerCompanyBankAccountNumber(e.target.value)}
+						value={sellerCompanyBankAccountNumber}
 					/>
 				</label>
 				<h4>Kupujący</h4>
@@ -558,8 +597,8 @@ const SecondStep = ({
 					Numer konta
 					<input
 						type='text'
-						onChange={(e) => setBuyerCompanyBankNumber(e.target.value)}
-						value={buyerCompanyBankNumber}
+						onChange={(e) => setBuyerCompanyBankAccountNumber(e.target.value)}
+						value={buyerCompanyBankAccountNumber}
 					/>
 				</label>
 			</div>
@@ -587,16 +626,16 @@ const ThirdStep = ({
 	invoicePositions,
 	setInvoicePositions,
 	handleAddInvoiceBtn,
-	setError
+	setError,
 }) => {
 	const [name, setName] = useState('');
 	const [amount, setAmount] = useState('');
-	const [unitOfMeasure, setUnitOfMeasure] = useState('');
+	const [unitOfMeasure, setUnitOfMeasure] = useState('L');
 	const [unitPrice, setUnitPrice] = useState('');
-	const [nettoValue, setNettoValue] = useState(0);
-	const [vatPercent, setVatPercent] = useState(0);
-	const [vatValue, setVatValue] = useState(0);
-	const [bruttoValue, setBruttoValue] = useState(0);
+	const [nettoValue, setNettoValue] = useState('');
+	const [vatPercent, setVatPercent] = useState('');
+	const [vatValue, setVatValue] = useState('');
+	const [bruttoValue, setBruttoValue] = useState('');
 
 	const handlePreviewStepBtn = () => {
 		setThirdStep(false);
@@ -605,30 +644,49 @@ const ThirdStep = ({
 	};
 
 	const handleAddPositionButton = () => {
-		if(name === '' || amount === '' || unitOfMeasure === '' || unitPrice === '' || nettoValue === '' || vatPercent === '' || vatValue === '' || bruttoValue === '') {
+		if (
+			name === '' ||
+			amount === '' ||
+			unitOfMeasure === '' ||
+			unitPrice === '' ||
+			nettoValue === '' ||
+			vatPercent === '' ||
+			vatValue === '' ||
+			bruttoValue === ''
+		) {
 			setError('Wypełnij wszystkie pola formularza');
+		} else if (
+			isNaN(amount) ||
+			isNaN(unitPrice) ||
+			isNaN(nettoValue) ||
+			isNaN(vatPercent) ||
+			isNaN(vatValue) ||
+			isNaN(bruttoValue)
+		) {
+			setError('W polu wymagającym podania liczby jest inna wartość');
 		} else {
-setInvoicePositions((prev) => [
-			...prev,
-			{
-				name: name,
-				amount: amount,
-				unitOfMeasure: unitOfMeasure,
-				unitPrice: unitPrice,
-				nettoValue: nettoValue,
-				vatPercent: vatPercent,
-				vatValue: vatValue,
-				bruttoValue: bruttoValue,
-			},
-		]);
-		setName('');
-		setAmount('');
-		setUnitOfMeasure('');
-		setUnitPrice('');
-		setNettoValue(0);
-		setVatPercent(0);
-		setVatValue(0);
-		setBruttoValue(0);
+			setInvoicePositions((prev) => [
+				...prev,
+				{
+					name: name,
+					amount: amount,
+					unitOfMeasure: unitOfMeasure,
+					unitPrice: unitPrice,
+					nettoValue: nettoValue,
+					vatPercent: vatPercent,
+					vatValue: vatValue,
+					bruttoValue: bruttoValue,
+				},
+			]);
+			setName('');
+			setAmount('');
+			setUnitOfMeasure('L');
+			setUnitPrice('');
+			setNettoValue('');
+			setVatPercent('');
+			setVatValue('');
+			setBruttoValue('');
+			setError('');
 		}
 		setTimeout(scrollToTop, 0);
 	};
@@ -691,11 +749,15 @@ setInvoicePositions((prev) => [
 						onChange={(e) => setUnitOfMeasure(e.target.value)}
 						value={unitOfMeasure}>
 						<option
-							selected
-							value='L'>
+							value='L'
+							selected>
 							Litry
 						</option>
-						<option value='KG'>Kilogramy</option>
+						<option
+							value='KG'
+							default>
+							Kilogramy
+						</option>
 						<option value='PCS'>Sztuki</option>
 						<option value='THOUSAND_PCS'>Tysiące sztuk</option>
 					</select>

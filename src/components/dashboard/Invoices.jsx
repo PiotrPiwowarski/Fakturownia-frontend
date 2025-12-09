@@ -54,7 +54,7 @@ const Invoices = () => {
 				<h1>Faktury.</h1>
 			</div>
 			<button className={styles.createInvoiceButton} onClick={handleAddNewInvoiceBtn}>Dodaj nową fakturę</button>
-			{isAddModalOpen && <AddNewInvoiceModal setIsAddModalOpen={setIsAddModalOpen} />}
+			{isAddModalOpen && <AddNewInvoiceModal setIsAddModalOpen={setIsAddModalOpen} reloadData={fetchData} />}
 			<InvoiceList error={error} setError={setError} invoices={invoices} fetchData={fetchData} />
 		</div>
 	);
